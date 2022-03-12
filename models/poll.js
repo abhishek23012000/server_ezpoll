@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const pollSchema = new Schema(
   {
+    poll_id: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
     },

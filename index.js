@@ -105,9 +105,9 @@ mongoose
 //   console.log("Connected to the database!");
 // });
 
-app.use("/", (req, res) => {
-  res.status(200).json(_response);
-});
+// app.use("/", (req, res) => {
+//   res.status(200).json(_response);
+// });
 
 server.listen(PORT, () => {
   _response.server = "Healthy";

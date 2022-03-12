@@ -7,40 +7,9 @@ module.exports = {
   createPoll: async (req, res, next) => {
     try {
       const { title, choice1, description, choice2, choice3 } = req.body;
-
-      //   console.log(choices);
-
-      //   for (let i = 0; i < choices.length; i++) {
-      //     console.log(choices[0].value);
-      //   }
-      //   let polls = [];
-      //   polls.push({
-      //     title: title,
-
-      //     options: [
-      //       {
-      //         value: options[0].value,
-      //         votes: 0,
-      //       },
-      //       {
-      //         value: options[1].value,
-      //         votes: 0,
-      //       },
-      //       {
-      //         value: options[2].value,
-      //         votes: 0,
-      //       },
-      //     ],
-      //   });
-      //   Poll.create(polls);
-      //   res.json({
-      //     success: true,
-      //     poll: polls,
-      //   });
-      //   if(description==="")
-      //   {
-
+      const poll_id = Math.random().toString(36).slice(2);
       const newPoll = await new Poll({
+        poll_id,
         title,
         description,
         choice1,
@@ -48,16 +17,8 @@ module.exports = {
         choice3,
       });
 
-      //   }else{
-      //     const newPoll = await new Poll({
-      //         title,
-      //         choice1,
-      //         choice2,
-      //         choice3,
-      //       });
-      //   }
       await newPoll.save();
-      res.status(200).json({
+      return res.status(200).json({
         success: true,
         poll: newPoll,
       });
