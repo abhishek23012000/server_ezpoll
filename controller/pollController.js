@@ -29,4 +29,24 @@ module.exports = {
       });
     }
   },
+
+  getPoll: async (req, res, next) => {
+    try {
+      const poll = await Poll.find({
+        poll_id: req.params.id,
+      });
+      if (poll.length === 0) {
+        return res.status(404).json({ message: "No Record Found" });
+      }
+      res.status(200).json({
+        success: true,
+        result: poll,
+      });
+    } catch (err) {
+      res.status(400).json({
+        success: false,
+        message: `error in getting poll", ${err.message}`,
+      });
+    }
+  },
 };

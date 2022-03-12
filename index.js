@@ -58,10 +58,6 @@ app.use((error, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 5000;
-// mongoose.connect("mongodb://localhost/codeial_development", {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
 
 const uri =
   "mongodb+srv://aayush:12345@cluster0.yz6wd.mongodb.net/votingapp?retryWrites=true&w=majority";
@@ -105,9 +101,9 @@ mongoose
 //   console.log("Connected to the database!");
 // });
 
-// app.use("/", (req, res) => {
-//   res.status(200).json(_response);
-// });
+app.use("/", (req, res) => {
+  res.status(200).json(_response);
+});
 
 server.listen(PORT, () => {
   _response.server = "Healthy";
