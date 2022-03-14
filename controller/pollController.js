@@ -53,16 +53,14 @@ module.exports = {
   choicePoll: async (req, res, next) => {
     try {
       // const poll = req.body.poll_id;
-      const choice1 = req.body.choice1;
-      const choice2 = req.body.choice2;
-      const choice3 = req.body.choice3;
+      const choice = req.body.choice;
 
       const tempPoll = await Poll.findById(req.body._id);
-      // console.log(tempCandidate);
-      if (typeof choice1 != "undefined") {
+      // console.log(tempPoll);
+      if (choice === "choice1") {
         tempPoll.choice1Vote += 1;
         // console.log(poll[0].choice1);
-      } else if (typeof choice2 != "undefined") {
+      } else if (choice === "choice2") {
         // console.log(poll[0].choice2);
         tempPoll.choice2Vote += 1;
       } else {
