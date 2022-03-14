@@ -21,6 +21,19 @@ const pollSchema = new Schema(
     choice3: {
       type: String,
     },
+
+    choice1Vote: {
+      type: Number,
+      default: 0,
+    },
+    choice2Vote: {
+      type: Number,
+      default: 0,
+    },
+    choice3Vote: {
+      type: Number,
+      default: 0,
+    },
   },
   { strict: false }
 );

@@ -49,4 +49,37 @@ module.exports = {
       });
     }
   },
+
+  choicePoll: async (req, res, next) => {
+    try {
+      // const poll = req.body.poll_id;
+      const choice1 = req.body.choice1;
+      const choice2 = req.body.choice2;
+      const choice3 = req.body.choice3;
+
+      const tempPoll = await Poll.findById(req.body._id);
+      // console.log(tempCandidate);
+      if (typeof choice1 != "undefined") {
+        tempPoll.choice1Vote += 1;
+        // console.log(poll[0].choice1);
+      } else if (typeof choice2 != "undefined") {
+        // console.log(poll[0].choice2);
+        tempPoll.choice2Vote += 1;
+      } else {
+        // console.log(poll[0].choice3);
+        tempPoll.choice3Vote += 1;
+      }
+      await tempPoll.save();
+      // console.log(poll[0]);
+      res.status(200).json({
+        success: true,
+        result: tempPoll,
+      });
+    } catch (err) {
+      res.status(400).json({
+        success: false,
+        message: `error in getting poll", ${err.message}`,
+      });
+    }
+  },
 };
