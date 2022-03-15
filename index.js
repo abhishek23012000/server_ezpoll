@@ -59,23 +59,23 @@ app.use((error, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 
-// const uri =
-//   "mongodb+srv://aayush:12345@cluster0.yz6wd.mongodb.net/votingapp?retryWrites=true&w=majority";
+const uri =
+  "mongodb+srv://aayush:12345@cluster0.yz6wd.mongodb.net/votingapp?retryWrites=true&w=majority";
 
-// mongoose
-//   .connect(uri, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   })
-//   .then(() => {
-//     _response.database = "Healthy";
-//     console.log("Database Connected");
-//     console.log("server Started on PORT", PORT);
-//   })
-//   .catch((err) => {
-//     _response.database = "Unhealthy";
-//     console.log("Error in connecting to DataBase", err.message);
-//   });
+mongoose
+  .connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    _response.database = "Healthy";
+    console.log("Database Connected");
+    console.log("server Started on PORT", PORT);
+  })
+  .catch((err) => {
+    _response.database = "Unhealthy";
+    console.log("Error in connecting to DataBase", err.message);
+  });
 
 // mongoose
 // .connect(
@@ -86,20 +86,20 @@ const PORT = process.env.PORT || 5000;
 //   }
 // )
 
-mongoose.connect("mongodb://localhost/college", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-const db = mongoose.connection;
+// mongoose.connect("mongodb://localhost/college", {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+// const db = mongoose.connection;
 
-db.on(
-  "error",
-  console.error.bind(console, "Error in connecting to the database")
-);
+// db.on(
+//   "error",
+//   console.error.bind(console, "Error in connecting to the database")
+// );
 
-db.once("open", function () {
-  console.log("Connected to the database!");
-});
+// db.once("open", function () {
+//   console.log("Connected to the database!");
+// });
 
 app.use("/", (req, res) => {
   res.status(200).json(_response);
