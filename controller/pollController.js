@@ -67,7 +67,7 @@ module.exports = {
       });
 
       const tempPoll = await Poll.findById(poll[0]._id);
-      // console.log(tempPoll);
+      console.log(tempPoll);
 
       let i = 0;
       while (typeof tempPoll.mac[i] !== "undefined") {
@@ -82,7 +82,7 @@ module.exports = {
       }
 
       const updateResponse = await Poll.updateOne(
-        { poll_id: req.body.poll_id },
+        { _id: poll[0]._id },
         { $push: { mac: macAddress } }
       );
 
