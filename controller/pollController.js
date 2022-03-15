@@ -61,11 +61,13 @@ module.exports = {
 
       // console.log(gm.default());
       const macAddress = gm.default();
-      const tempPoll = await Poll.findById(req.body._id);
 
-      // const poll = await Poll.find({
-      //   _id: req.body._id,
-      // });
+      const poll = await Poll.find({
+        poll_id: req.body.poll_id,
+      });
+
+      const tempPoll = await Poll.findById(poll[0]._id);
+      // console.log(tempPoll);
 
       let i = 0;
       while (typeof tempPoll.mac[i] !== "undefined") {
@@ -80,11 +82,11 @@ module.exports = {
       }
 
       const updateResponse = await Poll.updateOne(
-        { _id: req.body._id },
+        { poll_id: req.body.poll_id },
         { $push: { mac: macAddress } }
       );
 
-      console.log(updateResponse);
+      // console.log(updateResponse);
       // console.log(tempPoll);
       if (choice === "choice1") {
         tempPoll.choice1Vote += 1;
