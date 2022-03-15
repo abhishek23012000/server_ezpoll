@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const keys = require("../config/key");
 const gm = require("getmac");
 let Poll = require("../models/poll");
+var address = require("address");
 module.exports = {
   createPoll: async (req, res, next) => {
     try {
@@ -59,19 +60,25 @@ module.exports = {
       // const poll = req.body.poll_id;
       const choice = req.body.choice;
 
+      // address.mac(function (err, addr) {
+      //   console.log(addr); // '78:ca:39:b0:e6:7d'
+      // });
       // console.log(gm.default());
-      const macAddress = gm.default();
+      // let macAddress = gm.default();
+      let macAddress = address.ip();
 
       const poll = await Poll.find({
         poll_id: req.body.poll_id,
       });
 
       const tempPoll = await Poll.findById(poll[0]._id);
-      console.log(tempPoll);
+      console.log(macAddress);
 
       let i = 0;
       while (typeof tempPoll.mac[i] !== "undefined") {
         if (tempPoll.mac[i] === macAddress) {
+          console.log(tempPoll.mac[i]);
+          console.log(macAddress);
           return res.status(200).json({
             success: false,
             message: "Already voted",
@@ -82,10 +89,11 @@ module.exports = {
       }
 
       const updateResponse = await Poll.updateOne(
-        { _id: poll[0]._id },
+        { _id: poll[0].id },
         { $push: { mac: macAddress } }
       );
 
+      console.log(poll[0].id);
       // console.log(updateResponse);
       // console.log(tempPoll);
       if (choice === "choice1") {
