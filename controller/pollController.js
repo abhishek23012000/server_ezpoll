@@ -65,7 +65,9 @@ module.exports = {
       // });
       // console.log(gm.default());
       // let macAddress = gm.default();
-      let macAddress = address.ip();
+      // let macAddress = address.ip();
+      let macAddress =
+        req.header("x-forwarded-for") || req.connection.remoteAddress;
 
       const poll = await Poll.find({
         poll_id: req.body.poll_id,
