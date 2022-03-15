@@ -34,6 +34,12 @@ const pollSchema = new Schema(
       type: Number,
       default: 0,
     },
+
+    mac: [
+      {
+        type: String,
+      },
+    ],
   },
   { strict: false }
 );

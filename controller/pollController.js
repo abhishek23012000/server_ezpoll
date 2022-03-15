@@ -1,13 +1,15 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../config/key");
-
+const gm = require("getmac");
 let Poll = require("../models/poll");
 module.exports = {
   createPoll: async (req, res, next) => {
     try {
       const { title, choice1, description, choice2, choice3 } = req.body;
       const poll_id = Math.random().toString(36).slice(2);
+      const macAddress = gm.default();
+
       const newPoll = await new Poll({
         poll_id,
         title,
@@ -15,9 +17,11 @@ module.exports = {
         choice1,
         choice2,
         choice3,
+        mac: "1",
       });
 
       await newPoll.save();
+      // const updateResponse = await Poll.updateOne({}, { $push: { mac: "1" } });
       return res.status(200).json({
         success: true,
         poll: newPoll,
@@ -55,7 +59,32 @@ module.exports = {
       // const poll = req.body.poll_id;
       const choice = req.body.choice;
 
+      // console.log(gm.default());
+      const macAddress = gm.default();
       const tempPoll = await Poll.findById(req.body._id);
+
+      // const poll = await Poll.find({
+      //   _id: req.body._id,
+      // });
+
+      let i = 0;
+      while (typeof tempPoll.mac[i] !== "undefined") {
+        if (tempPoll.mac[i] === macAddress) {
+          return res.status(200).json({
+            success: false,
+            message: "Already voted",
+          });
+        }
+
+        i++;
+      }
+
+      const updateResponse = await Poll.updateOne(
+        { _id: req.body._id },
+        { $push: { mac: macAddress } }
+      );
+
+      console.log(updateResponse);
       // console.log(tempPoll);
       if (choice === "choice1") {
         tempPoll.choice1Vote += 1;
@@ -68,8 +97,8 @@ module.exports = {
         tempPoll.choice3Vote += 1;
       }
       await tempPoll.save();
-      // console.log(poll[0]);
-      res.status(200).json({
+
+      return res.status(200).json({
         success: true,
         result: tempPoll,
       });
