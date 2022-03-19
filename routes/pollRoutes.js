@@ -13,7 +13,7 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   createPoll
 );
-router.post(
+router.get(
   "/getpoll",
   passport.authenticate("jwt", { session: false }),
   clientPoll

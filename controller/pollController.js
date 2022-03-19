@@ -118,7 +118,7 @@ module.exports = {
   },
   clientPoll: async (req, res, next) => {
     try {
-      console.log(req.user);
+      // console.log(req.user);
       console.log("hyy");
       const poll = await Poll.find({
         client: req.user.id,
