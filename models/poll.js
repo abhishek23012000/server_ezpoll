@@ -40,6 +40,10 @@ const pollSchema = new Schema(
         type: String,
       },
     ],
+    client: {
+      type: Schema.Types.ObjectId,
+      ref: "client",
+    },
   },
   { strict: false }
 );

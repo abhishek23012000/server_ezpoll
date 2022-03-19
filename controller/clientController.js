@@ -33,7 +33,7 @@ module.exports = {
       const client = await Client.findOne({ email });
       if (client) {
         return res
-          .status(400)
+          .status(200)
           .json({ success: false, message: "Email already exist" });
       }
 

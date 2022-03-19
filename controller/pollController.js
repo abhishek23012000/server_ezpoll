@@ -11,7 +11,9 @@ module.exports = {
       const poll_id = Math.random().toString(36).slice(2);
       const macAddress = gm.default();
 
+      console.log(req.user);
       const newPoll = await new Poll({
+        client: req.user.id,
         poll_id,
         title,
         description,
@@ -59,13 +61,6 @@ module.exports = {
     try {
       // const poll = req.body.poll_id;
       const choice = req.body.choice;
-
-      // address.mac(function (err, addr) {
-      //   console.log(addr); // '78:ca:39:b0:e6:7d'
-      // });
-      // console.log(gm.default());
-      // let macAddress = gm.default();
-      // let macAddress = address.ip();
       let macAddress =
         req.header("x-forwarded-for") || req.connection.remoteAddress;
 
@@ -113,6 +108,27 @@ module.exports = {
       return res.status(200).json({
         success: true,
         result: tempPoll,
+      });
+    } catch (err) {
+      res.status(400).json({
+        success: false,
+        message: `error in getting poll", ${err.message}`,
+      });
+    }
+  },
+  clientPoll: async (req, res, next) => {
+    try {
+      console.log(req.user);
+      console.log("hyy");
+      const poll = await Poll.find({
+        client: req.user.id,
+      });
+      if (poll.length === 0) {
+        return res.status(404).json({ message: "No Record Found" });
+      }
+      res.status(200).json({
+        success: true,
+        result: poll,
       });
     } catch (err) {
       res.status(400).json({
