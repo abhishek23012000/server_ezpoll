@@ -77,14 +77,6 @@ mongoose
     console.log("Error in connecting to DataBase", err.message);
   });
 
-// mongoose.connect(
-//   "mongodb+srv://aayush:12345@cluster0.yz6wd.mongodb.net/votingapp?retryWrites=true&w=majority",
-//   {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   }
-// );
-
 // mongoose.connect("mongodb://localhost/college", {
 //   useNewUrlParser: true,
 //   useUnifiedTopology: true,

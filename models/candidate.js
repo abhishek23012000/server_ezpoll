@@ -2,9 +2,18 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const CandidateSchema = new Schema({
-  special_id: {
-    type: String,
-    required: true,
+  // special_id: {
+  //   type: String,
+  //   required: true,
+  // },
+
+  position: {
+    type: Schema.Types.ObjectId,
+    ref: "position",
+  },
+  client: {
+    type: Schema.Types.ObjectId,
+    ref: "client",
   },
   name: {
     type: String,
@@ -29,10 +38,10 @@ const CandidateSchema = new Schema({
     type: Number,
     default: 0,
   },
-  voter: {
-    type: Schema.Types.ObjectId,
-    ref: "voter",
-  },
+  // voter: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "voter",
+  // },
 });
 
 module.exports = mongoose.model("Candidate", CandidateSchema);

@@ -13,6 +13,7 @@ var xlsx = require("xlsx");
 const Client = require("../models/client");
 const Voter = require("../models/voter");
 const Candidate = require("../models/candidate");
+const Position = require("../models/position");
 
 //Config
 const keys = require("../config/key");
@@ -101,7 +102,7 @@ module.exports = {
       jwt.sign(payload, keys.secretOrKey, { expiresIn: "1d" }, (err, token) => {
         res.json({
           success: true,
-          token: "Bearer " + token,
+          token: token,
         });
       });
     } catch (err) {
@@ -187,6 +188,7 @@ module.exports = {
   addCandidate: async (req, res, next) => {
     try {
       const avatar = req.file.filename;
+      console.log(avatar);
       const { name, partyName, phone, email } = req.body;
 
       //VALIDATE REQUEST BODY
@@ -202,9 +204,11 @@ module.exports = {
           message: "Probably you have missed certain fields",
         });
       }
-      const profile_url = `http://localhost:5000/profile/${req.file.filename}`;
+
+      const profile_url = `https://ezserver.herokuapp.com/profile/${req.file.filename}`;
       const newCandidate = await new Candidate({
-        special_id: req.user.special_id,
+        position: req.body.id,
+        client: req.user.id,
         name,
         partyName,
         phone,
@@ -291,6 +295,32 @@ module.exports = {
       res
         .status(400)
         .json({ message: `error in geting votin result", ${err.message}` });
+    }
+  },
+
+  addPosition: async (req, res, next) => {
+    try {
+      const { name, description } = req.body;
+
+      //VALIDATE REQUEST BODY
+      if (!name || !description) {
+        return res.status(200).json({
+          success: false,
+          message: "Probably you have missed certain fields",
+        });
+      }
+      const newPosition = await new Position({
+        name,
+        description,
+      });
+      await newPosition.save();
+      return res.status(200).json({
+        success: true,
+        message: "Position registerd successfully",
+        response: newPosition,
+      });
+    } catch (error) {
+      return res.status(400).json({ success: false, message: error.message });
     }
   },
 };

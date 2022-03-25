@@ -12,6 +12,7 @@ const {
   deleteCandidate,
   getAllCandidate,
   getResult,
+  addPosition,
 } = require("../controller/clientController");
 
 router.post("/login", clientLogin);
@@ -35,6 +36,14 @@ router.get(
   "/getAllCandidate",
   passport.authenticate("jwt", { session: false }),
   getAllCandidate
+);
+
+require("../controller/pollController");
+
+router.post(
+  "/addposition",
+  passport.authenticate("jwt", { session: false }),
+  addPosition
 );
 
 router.get("/getResult", getResult);

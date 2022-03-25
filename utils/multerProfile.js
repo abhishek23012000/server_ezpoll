@@ -18,7 +18,6 @@ const filestorage = multer.diskStorage({
       null,
       `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
     );
-    6;
   },
 });
 const profileUpload = multer({
