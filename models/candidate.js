@@ -25,7 +25,7 @@ const CandidateSchema = new Schema({
     unique: true,
   },
 
-  avatar: {
+  profile: {
     type: String,
   },
   partyName: {

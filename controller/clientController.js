@@ -187,8 +187,8 @@ module.exports = {
 
   addCandidate: async (req, res, next) => {
     try {
-      const avatar = req.file.filename;
-      console.log(avatar);
+      const profile = req.file.filename;
+      console.log(profile);
       const { name, partyName, phone, email } = req.body;
 
       //VALIDATE REQUEST BODY
@@ -198,12 +198,12 @@ module.exports = {
           .status(400)
           .json({ success: false, message: "Email already exist" });
       }
-      if (!name || !avatar || !partyName || !phone || !email) {
-        return res.status(400).json({
-          success: false,
-          message: "Probably you have missed certain fields",
-        });
-      }
+      // if (!name || !profile || !partyName || !phone || !email) {
+      //   return res.status(400).json({
+      //     success: false,
+      //     message: "Probably you have missed certain fields",
+      //   });
+      // }
 
       const profile_url = `https://ezserver.herokuapp.com/profile/${req.file.filename}`;
       const newCandidate = await new Candidate({
@@ -213,7 +213,7 @@ module.exports = {
         partyName,
         phone,
         email,
-        avatar: profile_url,
+        profile: profile_url,
       });
       await newCandidate.save();
       return res.status(200).json({

@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const VoterSchema = new Schema({
-  special_id: {
-    type: String,
-    required: true,
-  },
+  // special_id: {
+  //   type: String,
+  //   required: true,
+  // },
   name: {
     type: String,
     required: true,
@@ -54,10 +54,10 @@ const VoterSchema = new Schema({
   otp: {
     type: String,
   },
-  candidate: {
-    type: Schema.Types.ObjectId,
-    ref: "candidate",
-  },
+  // candidate: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "candidate",
+  // },
 });
 
 module.exports = mongoose.model("Voter", VoterSchema);
