@@ -8,6 +8,7 @@ const validateAdminRegisterInput = require("../validation/adminRegister");
 const validateVoterRegisterInput = require("../validation/voterRegister");
 const validateAdminLoginInput = require("../validation/adminLogin");
 var xlsx = require("xlsx");
+const sendEmail = require("../utils/nodemailer");
 //Models
 
 const Client = require("../models/client");
@@ -120,64 +121,55 @@ module.exports = {
       var wb = xlsx.readFile(dataPathExcel);
       var sheetName = wb.SheetNames[0];
       var sheetValue = wb.Sheets[sheetName];
-
+      // console.log(sheetValue);
       var excelData = xlsx.utils.sheet_to_json(sheetValue);
 
       //iterate over excel sheet
-
+      var arr = [];
       for (var i = 0; i < excelData.length; i++) {
         const { errors, isValid } = validateVoterRegisterInput(excelData[i]);
 
         if (!isValid) {
           return res.status(400).json(errors);
         }
-        const {
-          name,
-          email,
-          year,
-          fatherName,
-          aadharCard,
-          gender,
-          profession,
-          dob,
-          VoterMobileNumber,
-        } = excelData[i];
+        const { name, email } = excelData[i];
 
         const voter = await Voter.findOne({ email });
 
         if (voter) {
           errors.email = `${email} already exist`;
-          return res.status(400).json(errors);
+          arr.push(email);
+          continue;
+          // return res.status(400).json(errors);
         }
-        const avatar = gravatar.url(email, { s: "200", r: "pg", d: "mm" });
+
         let hashedPassword;
-        hashedPassword = await bcrypt.hash(dob, 10);
+        let tempPass = Math.random().toString(36).slice(6);
+        hashedPassword = await bcrypt.hash("abhi", 10);
         var date = new Date();
         const batch = date.getFullYear();
         var str = email;
         var nameMatch = str.match(/^([^@]*)@/);
         var username = nameMatch ? nameMatch[1] : null;
-        var components = [username];
+        var components = ["Voter", "_", username];
 
         var registrationNumber = components.join("");
+        await sendEmail(email, tempPass, registrationNumber, "OTP");
         const newVoter = await new Voter({
-          special_id: req.user.special_id,
           name,
           email,
           password: hashedPassword,
-          year,
-          fatherName,
-          aadharCard,
-          gender,
           registrationNumber,
-          profession,
-          avatar,
-          dob,
-          VoterMobileNumber,
         });
         await newVoter.save();
       }
-      res.status(200).json({ message: "Successfully added " });
+
+      //  *****************************************************
+      return res.status(200).json({
+        success: true,
+        message:
+          " Successfully added && check your registered email for Password and username",
+      });
     } catch (err) {
       res
         .status(400)

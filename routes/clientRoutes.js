@@ -22,7 +22,7 @@ router.post(
   "/addVoter",
   upload.single("excel"),
 
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   addVoter
 );
 router.post(

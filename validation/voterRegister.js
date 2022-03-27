@@ -5,8 +5,6 @@ const validateStudentRegisterInput = (data) => {
   let errors = {};
   data.name = !isEmpty(data.name) ? data.name : "";
   data.email = !isEmpty(data.email) ? data.email : "";
-  data.profession = !isEmpty(data.profession) ? data.profession : "";
-  data.dob = !isEmpty(data.dob) ? data.dob : "";
   // data.year = !isEmpty(data.year) ? data.year : "";
 
   if (!Validator.isLength(data.name, { min: 2, max: 30 })) {
@@ -23,18 +21,6 @@ const validateStudentRegisterInput = (data) => {
 
   if (Validator.isEmpty(data.email)) {
     errors.email = "Email field is required";
-  }
-
-  if (Validator.isEmpty(data.profession)) {
-    errors.profession = "Department field is required";
-  }
-
-  // if (Validator.isEmpty(data.year)) {
-  //   errors.year = "Year field is required";
-  // }
-
-  if (Validator.isEmpty(data.dob)) {
-    errors.dob = "DOB field is required";
   }
 
   return {

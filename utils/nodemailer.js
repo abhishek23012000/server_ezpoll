@@ -6,16 +6,16 @@ const transport = nodemailer.createTransport({
   secure: true,
   debug: true,
   auth: {
-    user: process.env.GMAIL_USERNAME,
-    pass: process.env.GMAIL_PASSWORD,
+    user: "dmega2301@gmail.com",
+    pass: "Dmegaabhi@2301",
   },
 });
 
-const sendMail = async (email, secretToken, mode) => {
+const sendMail = async (email, secretToken, registrationNumber, mode) => {
   try {
     if (mode == "OTP") {
       return await transport.sendMail({
-        from: process.env.GMAIL_USERNAME,
+        from: "dmega2301@gmail.com",
         to: email,
         subject: "Voting App",
         html: `
@@ -492,7 +492,7 @@ const sendMail = async (email, secretToken, mode) => {
                               <tbody>
                                 <tr align="center">
                                   <td align="center" valign="middle" style="border-collapse:collapse;">
-                                    <a class="buttonText" href="#" target="_blank" style="color: #4A90E2;text-decoration: none;font-weight: normal;display: block;border: 2px solid #585858;padding: 10px 80px;font-family: Arial;">${secretToken}</a>
+                                    <a class="buttonText" href="#" target="_blank" style="color: #4A90E2;text-decoration: none;font-weight: normal;display: block;border: 2px solid #585858;padding: 10px 80px;font-family: Arial;">${secretToken} && ${registrationNumber} </a>
                                   </td>
                                 </tr>
                               </tbody>
