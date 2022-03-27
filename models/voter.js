@@ -19,7 +19,7 @@ const VoterSchema = new Schema({
     type: String,
     required: true,
   },
-  registrationNumber: {
+  username: {
     type: String,
   },
   // avatar: {

@@ -19,11 +19,12 @@ module.exports = {
       if (!isValid) {
         return res.status(400).json(errors);
       }
-      const { registrationNumber, password } = req.body;
+      const { username, password } = req.body;
 
-      const voter = await Voter.findOne({ registrationNumber });
+      const voter = await Voter.findOne({ username });
+      // console.log(voter);
       if (!voter) {
-        errors.registrationNumber = "Registration number not found";
+        errors.username = "username number not found";
         return res.status(404).json(errors);
       }
       const isCorrect = await bcrypt.compare(password, voter.password);
@@ -32,42 +33,42 @@ module.exports = {
         return res.status(404).json(errors);
       }
       const { email } = voter;
-      console.log(email);
+
       //  voter = await Voter.findOne({ email })
       // if (!voter) {
       //     errors.email = "Email Not found, Provide registered email"
       //     return res.status(400).json(errors)
       // }
 
-      console.log(voter);
+      // console.log(voter);
       const payload = { id: voter.id, voter };
       jwt.sign(payload, keys.secretOrKey, { expiresIn: "1d" }, (err, token) => {
-        res.json({
+        return res.json({
           success: true,
-          token: "Bearer " + token,
+          token: token,
         });
       });
 
-      function generateOTP() {
-        var digits = "0123456789";
-        let OTP = "";
-        for (let i = 0; i < 6; i++) {
-          OTP += digits[Math.floor(Math.random() * 10)];
-        }
-        return OTP;
-      }
-      const OTP = await generateOTP();
-      voter.otp = OTP;
-      await voter.save();
-      await sendEmail(voter.email, OTP, "OTP");
-      res.status(200).json({ message: "check your registered email for OTP" });
-      const helper = async () => {
-        voter.otp = "";
-        await voter.save();
-      };
-      setTimeout(function () {
-        helper();
-      }, 300000);
+      // function generateOTP() {
+      //   var digits = "0123456789";
+      //   let OTP = "";
+      //   for (let i = 0; i < 6; i++) {
+      //     OTP += digits[Math.floor(Math.random() * 10)];
+      //   }
+      //   return OTP;
+      // }
+      // const OTP = await generateOTP();
+      // voter.otp = OTP;
+      // await voter.save();
+      // await sendEmail(voter.email, OTP, "OTP");
+      // res.status(200).json({ message: "check your registered email for OTP" });
+      // const helper = async () => {
+      //   voter.otp = "";
+      //   await voter.save();
+      // };
+      // setTimeout(function () {
+      //   helper();
+      // }, 300000);
 
       // res.json("good");
     } catch {

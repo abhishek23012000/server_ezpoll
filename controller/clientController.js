@@ -145,21 +145,21 @@ module.exports = {
 
         let hashedPassword;
         let tempPass = Math.random().toString(36).slice(6);
-        hashedPassword = await bcrypt.hash("abhi", 10);
+        hashedPassword = await bcrypt.hash(tempPass, 10);
         var date = new Date();
         const batch = date.getFullYear();
         var str = email;
         var nameMatch = str.match(/^([^@]*)@/);
-        var username = nameMatch ? nameMatch[1] : null;
-        var components = ["Voter", "_", username];
+        var userna = nameMatch ? nameMatch[1] : null;
+        var components = ["Voter", "_", userna];
 
-        var registrationNumber = components.join("");
-        await sendEmail(email, tempPass, registrationNumber, "OTP");
+        var username = components.join("");
+        await sendEmail(email, tempPass, username, "OTP");
         const newVoter = await new Voter({
           name,
           email,
           password: hashedPassword,
-          registrationNumber,
+          username,
         });
         await newVoter.save();
       }
