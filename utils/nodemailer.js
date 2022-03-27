@@ -6,8 +6,8 @@ const transport = nodemailer.createTransport({
   port: 587,
   secure: false,
   auth: {
-    user: "dmega2301@gmail.com",
-    pass: "Dmegaabhi@2301",
+    user: "ezpoll.india@gmail.com",
+    pass: "ezpoll@123",
   },
 });
 
@@ -15,7 +15,7 @@ const sendMail = async (email, secretToken, registrationNumber, mode) => {
   try {
     if (mode == "OTP") {
       return await transport.sendMail({
-        from: "dmega2301@gmail.com",
+        from: "ezpoll.india@gmail.com",
         to: email,
         subject: "Voting App",
         html: `
