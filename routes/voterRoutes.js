@@ -17,8 +17,8 @@ router.post("/login", voterLogin);
 
 router.post("/postOTP", postOTP);
 router.get(
-  "/getAllCandidate",
-  passport.authenticate("jwt", { session: false }),
+  "/getAllCandidate/:id",
+  // passport.authenticate("jwt", { session: false }),
   getAllCandidate
 );
 router.get(

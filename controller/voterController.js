@@ -114,7 +114,9 @@ module.exports = {
         position_id: req.params.id,
       });
       if (candidates.length === 0) {
-        return res.status(404).json({ message: "No Record Found" });
+        return res
+          .status(404)
+          .json({ success: false, message: "No Record Found" });
       }
       return res.status(200).json({ success: true, result: candidates });
     } catch (err) {
