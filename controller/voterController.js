@@ -118,7 +118,12 @@ module.exports = {
           .status(404)
           .json({ success: false, message: "No Record Found" });
       }
-      return res.status(200).json({ success: true, result: candidates });
+      const position = await Position.find({
+        position_id: req.params.id,
+      });
+      return res
+        .status(200)
+        .json({ position: position, success: true, result: candidates });
     } catch (err) {
       res
         .status(400)
