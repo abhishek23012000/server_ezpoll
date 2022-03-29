@@ -9,6 +9,7 @@ const validatevoterLoginInput = require("../validation/voterLogin");
 const validateForgotPassword = require("../validation/forgotPassword");
 const validateOTP = require("../validation/otpValidation");
 const Candidate = require("../models/candidate");
+const Position = require("../models/position");
 
 module.exports = {
   voterLogin: async (req, res, next) => {
