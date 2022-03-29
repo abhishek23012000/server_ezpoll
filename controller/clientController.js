@@ -199,7 +199,7 @@ module.exports = {
 
       const profile_url = `https://ezserver.herokuapp.com/profile/${req.file.filename}`;
       const newCandidate = await new Candidate({
-        position: req.body.id,
+        position_id: req.body.position_id,
         client: req.user.id,
         name,
         partyName,
@@ -304,6 +304,7 @@ module.exports = {
       const newPosition = await new Position({
         name,
         description,
+        position_id: Math.random().toString(36).slice(6),
       });
       await newPosition.save();
       return res.status(200).json({

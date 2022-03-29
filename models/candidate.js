@@ -7,9 +7,8 @@ const CandidateSchema = new Schema({
   //   required: true,
   // },
 
-  position: {
-    type: Schema.Types.ObjectId,
-    ref: "position",
+  position_id: {
+    type: String,
   },
   client: {
     type: Schema.Types.ObjectId,
