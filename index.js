@@ -60,7 +60,7 @@ app.use((error, req, res, next) => {
 const PORT = process.env.PORT || 5000;
 
 const uri =
-  "mongodb+srv://aayush:12345@cluster0.yz6wd.mongodb.net/votingapp?retryWrites=true&w=majority";
+  "mongodb+srv://Ezpoll:ezpoll@cluster0.atssl.mongodb.net/votingApp?retryWrites=true&w=majority";
 
 mongoose
   .connect(uri, {
@@ -103,3 +103,5 @@ server.listen(PORT, () => {
 // process.env.MONGO_URL.replace("<password>", process.env.MONGO_PASSWORD
 // "mongodb://127.0.0.1:27017/frontEndProject"
 // https://git.heroku.com/ezserver.git
+
+// mongodb+srv://Ezpoll:ezpoll@cluster0.atssl.mongodb.net/votingApp?retryWrites=true&w=majority

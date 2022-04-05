@@ -53,9 +53,9 @@ const VoterSchema = new Schema({
   // VoterMobileNumber: {
   //   type: Number,
   // },
-  // otp: {
-  //   type: String,
-  // },
+  otp: {
+    type: String,
+  },
   // candidate: {
   //   type: Schema.Types.ObjectId,
   //   ref: "candidate",

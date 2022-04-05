@@ -305,6 +305,7 @@ module.exports = {
         name,
         description,
         position_id: Math.random().toString(36).slice(6),
+        voter: "1",
       });
       await newPosition.save();
       return res.status(200).json({

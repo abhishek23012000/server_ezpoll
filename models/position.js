@@ -12,5 +12,15 @@ const PositionSchema = new Schema({
   description: {
     type: String,
   },
+  // voter: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "voter",
+  // },
+
+  voter: [
+    {
+      type: String,
+    },
+  ],
 });
 module.exports = mongoose.model("Position", PositionSchema);

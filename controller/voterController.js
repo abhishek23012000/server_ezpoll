@@ -2,14 +2,16 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../config/key");
 const sendEmail = require("../utils/nodemailer");
-const Voter = require("../models/voter");
 
 const validatevoterLoginInput = require("../validation/voterLogin");
 
 const validateForgotPassword = require("../validation/forgotPassword");
 const validateOTP = require("../validation/otpValidation");
+
+// models
 const Candidate = require("../models/candidate");
 const Position = require("../models/position");
+const Voter = require("../models/voter");
 
 module.exports = {
   voterLogin: async (req, res, next) => {
@@ -77,38 +79,6 @@ module.exports = {
     }
   },
 
-  postOTP: async (req, res, next) => {
-    try {
-      const { errors, isValid } = validateOTP(req.body);
-      if (!isValid) {
-        return res.status(400).json(errors);
-      }
-      const { registrationNumber, otp } = req.body;
-
-      const voter = await Voter.findOne({ registrationNumber });
-      if (!voter) {
-        errors.registrationNumber = "Registration number not found";
-        return res.status(404).json(errors);
-      }
-
-      if (voter.otp !== otp) {
-        errors.otp = "Invalid OTP, check your email again";
-        return res.status(400).json(errors);
-      }
-
-      const payload = { id: voter.id, voter };
-      jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
-        res.json({
-          success: true,
-          token: "Bearer " + token,
-        });
-      });
-    } catch (err) {
-      console.log("Error in submitting otp", err.message);
-      return res.status(200);
-    }
-  },
-
   getAllCandidate: async (req, res, next) => {
     try {
       const candidates = await Candidate.find({
@@ -151,6 +121,104 @@ module.exports = {
       res
         .status(400)
         .json({ message: `error in voting process", ${err.message}` });
+    }
+  },
+
+  postCount: async (req, res, next) => {
+    try {
+      // console.log("req.user", req.user.id);
+      const voter = await Voter.findById(req.user._id);
+
+      // console.log(vote);
+      const tempPosition = await Position.find({
+        position_id: req.body.position_id,
+      });
+
+      const position = await Position.findById(tempPosition[0]._id);
+      // console.log(typeof position.voter[0]);
+
+      let i = 0;
+      while (typeof position.voter[i] !== "undefined") {
+        if (position.voter[i] === req.user.id) {
+          console.log(position.voter[i]);
+          return res.status(200).json({
+            success: false,
+            message: "Already voted",
+          });
+        }
+        i++;
+      }
+      console.log(typeof req.user.id);
+      const updateResponse = await Position.updateOne(
+        { _id: tempPosition[0]._id },
+        { $push: { voter: req.user.id } }
+      );
+      // // console.log(position.voter);
+
+      const email = req.user.email;
+
+      function generateOTP() {
+        var digits = "0123456789";
+        let OTP = "";
+        for (let i = 0; i < 6; i++) {
+          OTP += digits[Math.floor(Math.random() * 10)];
+        }
+        return OTP;
+      }
+      const OTP = await generateOTP();
+      voter.otp = OTP;
+      await voter.save();
+      // email, secretToken, registrationNumber, mode
+      await sendEmail(email, OTP, "abhi", "VOTEROTP");
+      return res
+        .status(200)
+        .json({ message: "check your registered email for OTP" });
+      // const helper = async () => {
+      //   voter.otp = "";
+      //   await voter.save();
+      // };
+      // setTimeout(function () {
+      //   helper();
+      // }, 300000);
+
+      // return res.json("good");
+    } catch (err) {
+      res
+        .status(400)
+        .json({ message: `error in voting process", ${err.message}` });
+    }
+  },
+
+  postOTP: async (req, res, next) => {
+    try {
+      const otp = req.body.otp;
+
+      // const voter = await Voter.findOne({ req.user.id });
+      const voter = await Voter.findById(req.user.id);
+      if (!voter) {
+        return res.status(404).json("voter is not found");
+      }
+
+      if (voter.otp !== otp) {
+        // errors.otp = "Invalid OTP, check your email again";
+        return res.status(400).json("Invalid OTP, check your email again");
+      }
+
+      const tempCandidate = await Candidate.findById(req.body.id);
+
+      tempCandidate.vote += 1;
+      await tempCandidate.save();
+      return res.status(200).json({ message: "Thanks for voting" });
+      // const payload = { id: voter.id, voter };
+      // jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
+      //   res.json({
+      //     success: true,
+      //     token: "Bearer " + token,
+      //   });
+      // });
+    } catch (err) {
+      console.log("Error in submitting otp", err.message);
+      return res.status(200);
     }
   },
 };

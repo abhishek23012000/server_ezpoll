@@ -560,6 +560,14 @@ const sendMail = async (email, secretToken, registrationNumber, mode) => {
 </html>
       `,
       });
+    } else if (mode == "VOTEROTP") {
+      // email, OTP, tempCandidate, "VOTEROTP"
+      return await transport.sendMail({
+        from: "ezpoll.india@gmail.com",
+        to: email,
+        subject: "Voting App",
+        html: `otp is ${secretToken} and you are voting for ${registrationNumber}`,
+      });
     }
   } catch (err) {
     console.log(err);
