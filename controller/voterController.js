@@ -101,22 +101,45 @@ module.exports = {
         .json({ message: `error in getting candidate", ${err.message}` });
     }
   },
-  voterCount: async (req, res, next) => {
+  voteCount: async (req, res, next) => {
     try {
-      console.log("req.user", req.user._id);
-      const voter = await Voter.findById(req.user._id);
-      const tempCandidate = await Candidate.findById(req.params.id);
-      console.log(tempCandidate);
+      const tempPosition = await Candidate.find({
+        position_id: req.params.id,
+      });
+      console.log(tempPosition[0].vote);
+      let l = tempPosition.length;
 
-      if (!voter.candidate) {
-        (voter.candidate = req.params.id), await voter.save();
-        tempCandidate.vote += 1;
-        await tempCandidate.save();
-      } else {
-        return res.status(200).json({ message: "already voted" });
+      let candidates = [];
+
+      var max = 0;
+      var partyName = "";
+      for (var i = 0; i < l; i++) {
+        var t = tempPosition[i].vote;
+        let candidate = {
+          count: tempPosition[i].vote,
+          name: tempPosition[i].name,
+          partyName: tempPosition[i].partyName,
+        };
+        candidates.push(candidate);
+        if (t > max) {
+          max = t;
+          partyName = tempPosition[i].partyName;
+          name = tempPosition[i].name;
+        }
       }
 
-      return res.status(200).json({ message: "Thanks for voting" });
+      let winner = {
+        message: "winner",
+        count: max,
+        partyName: partyName,
+        name: name,
+      };
+      // candidates.push(winner);
+      return res.status(200).json({
+        success: true,
+        winner,
+        candidates,
+      });
     } catch (err) {
       res
         .status(400)
@@ -137,6 +160,8 @@ module.exports = {
       const position = await Position.findById(tempPosition[0]._id);
       // console.log(typeof position.voter[0]);
 
+      const tempCandidate = await Candidate.findById(req.body.choice_id);
+
       let i = 0;
       while (typeof position.voter[i] !== "undefined") {
         if (position.voter[i] === req.user.id) {
@@ -149,10 +174,7 @@ module.exports = {
         i++;
       }
       console.log(typeof req.user.id);
-      const updateResponse = await Position.updateOne(
-        { _id: tempPosition[0]._id },
-        { $push: { voter: req.user.id } }
-      );
+
       // // console.log(position.voter);
 
       const email = req.user.email;
@@ -169,7 +191,7 @@ module.exports = {
       voter.otp = OTP;
       await voter.save();
       // email, secretToken, registrationNumber, mode
-      await sendEmail(email, OTP, "abhi", "VOTEROTP");
+      await sendEmail(email, OTP, tempCandidate, "VOTEROTP");
       return res
         .status(200)
         .json({ message: "check your registered email for OTP" });
@@ -183,7 +205,7 @@ module.exports = {
 
       // return res.json("good");
     } catch (err) {
-      res
+      return res
         .status(400)
         .json({ message: `error in voting process", ${err.message}` });
     }
@@ -192,7 +214,9 @@ module.exports = {
   postOTP: async (req, res, next) => {
     try {
       const otp = req.body.otp;
-
+      const tempPosition = await Position.find({
+        position_id: req.body.position_id,
+      });
       // const voter = await Voter.findOne({ req.user.id });
       const voter = await Voter.findById(req.user.id);
       if (!voter) {
@@ -204,21 +228,34 @@ module.exports = {
         return res.status(400).json("Invalid OTP, check your email again");
       }
 
-      const tempCandidate = await Candidate.findById(req.body.id);
+      const tempCandidate = await Candidate.findById(req.body.choice_id);
 
       tempCandidate.vote += 1;
       await tempCandidate.save();
+
+      const updateResponse = await Position.updateOne(
+        { _id: tempPosition[0]._id },
+        { $push: { voter: req.user.id } }
+      );
+
       return res.status(200).json({ message: "Thanks for voting" });
-      // const payload = { id: voter.id, voter };
-      // jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
-      //   res.json({
-      //     success: true,
-      //     token: "Bearer " + token,
-      //   });
-      // });
     } catch (err) {
-      console.log("Error in submitting otp", err.message);
-      return res.status(200);
+      const tempPosition = await Position.find({
+        position_id: req.body.position_id,
+      });
+
+      let position = await Position.findById(tempPosition[0]._id);
+
+      let p = position.voter.indexOf(req.user.id);
+
+      update = { $set: {} };
+
+      update["$set"]["voter." + p] = "new";
+      await Position.findByIdAndUpdate({ _id: tempPosition[0]._id }, update);
+
+      return res
+        .status(400)
+        .json({ message: `Error in submitting otp", ${err.message}` });
     }
   },
 };

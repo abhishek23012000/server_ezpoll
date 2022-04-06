@@ -1,0 +1,44 @@
+before otp
+http://localhost:5000/api/voter/post
+
+{
+    "choice_id":"624c7c537b4f0800165b7cba",
+    "position_id":"t4tawdr"
+}
+
+
+after otp
+
+http://localhost:5000/api/voter/postOTP
+
+{
+    "choice_id":"624c7c537b4f0800165b7cba",
+    "otp":"809458",
+    "position_id":"t4tawdr"
+}
+
+for result
+http://localhost:5000/api/voter/voteCount/t4tawdr
+
+{
+  "success": true,
+  "candidates": [
+    {
+      "count": 2,
+      "name": "abhishek",
+      "partyName": "yashi"
+    },
+    {
+      "count": 0,
+      "name": "Gaurav",
+      "partyName": "yukta"
+    }
+  ],
+  "winner": {
+    "message": "winner",
+    "count": 2,
+    "partyName": "yashi",
+    "name": "abhishek"
+  }
+}
+

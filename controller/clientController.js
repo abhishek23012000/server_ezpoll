@@ -317,4 +317,28 @@ module.exports = {
       return res.status(400).json({ success: false, message: error.message });
     }
   },
+
+  // updateProfile: async (req, res, next) => {
+  //   try {
+  //     const { name, email, contactNumber } = req.body;
+  //     // const userPostImg = await bufferConversion(req.file.originalname, req.file.buffer)
+  //     // const imgResponse = await cloudinary.uploader.upload(userPostImg)
+  //     const client = await Client.findOne({ email });
+  //     if (name) {
+  //       client.name = name;
+  //       await client.save();
+  //     }
+  //     if (email) {
+  //       client.email = email;
+  //       await client.save();
+  //     }
+  //     if (contactNumber) {
+  //       client.contactNumber = contactNumber;
+  //       await client.save();
+  //     }
+  //     return res.status(200).json(client);
+  //   } catch (err) {
+  //     console.log("Error in updating Profile", err.message);
+  //   }
+  // },
 };

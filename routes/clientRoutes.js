@@ -13,6 +13,7 @@ const {
   getAllCandidate,
   getResult,
   addPosition,
+  // updateProfile,
 } = require("../controller/clientController");
 
 router.post("/login", clientLogin);
@@ -31,6 +32,13 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   addCandidate
 );
+
+// router.post(
+//   "/updateProfile",
+
+//   passport.authenticate("jwt", { session: false }),
+//   updateProfile
+// );
 
 router.get(
   "/getAllCandidate",

@@ -566,7 +566,9 @@ const sendMail = async (email, secretToken, registrationNumber, mode) => {
         from: "ezpoll.india@gmail.com",
         to: email,
         subject: "Voting App",
-        html: `otp is ${secretToken} and you are voting for ${registrationNumber}`,
+        html: `otp is ${secretToken} and you are voting for ${registrationNumber.name} and partyname is  ${registrationNumber.partyName}
+        <img width="130" src="${registrationNumber.profile}" style="width:130px;max-width:130px;border:0;height:auto;line-height:100%;outline:none;text-decoration:none;">
+        `,
       });
     }
   } catch (err) {

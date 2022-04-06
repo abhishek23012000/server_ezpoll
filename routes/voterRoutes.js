@@ -8,7 +8,7 @@ const {
   //  forgotPassword,
   getAllCandidate,
   postOTP,
-  voterCount,
+  voteCount,
   postCount,
 } = require("../controller/voterController");
 
@@ -20,15 +20,15 @@ router.post(
 );
 // router.post('/forgotPassword', forgotPassword)
 
-router.post("/postOTP", postOTP);
+router.post(
+  "/postOTP",
+  passport.authenticate("jwt", { session: false }),
+  postOTP
+);
 router.get(
   "/getAllCandidate/:id",
   // passport.authenticate("jwt", { session: false }),
   getAllCandidate
 );
-router.get(
-  "/voterCount/:id",
-  passport.authenticate("jwt", { session: false }),
-  voterCount
-);
+router.get("/voteCount/:id", voteCount);
 module.exports = router;
