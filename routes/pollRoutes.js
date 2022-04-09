@@ -10,7 +10,7 @@ const {
 
 router.post(
   "/create",
-  // passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false }),
   createPoll
 );
 router.get(

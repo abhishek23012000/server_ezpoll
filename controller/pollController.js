@@ -25,7 +25,7 @@ module.exports = {
       // });
 
       const newPoll = await new Poll({
-        // client: req.user.id,
+        client: req.user.id,
         exp,
         poll_id,
         title,
