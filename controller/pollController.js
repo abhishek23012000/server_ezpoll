@@ -11,7 +11,7 @@ module.exports = {
       const poll_id = Math.random().toString(36).slice(2);
       // const macAddress = gm.default();
 
-      console.log(req.body.choices.length);
+      // console.log(req.body.choices.length);
 
       // const newPoll = await new Poll({
       //   client: req.user.id,
