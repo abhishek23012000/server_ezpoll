@@ -7,23 +7,35 @@ var address = require("address");
 module.exports = {
   createPoll: async (req, res, next) => {
     try {
-      const { title, choice1, description, choice2, choice3 } = req.body;
+      const { title, description, choices, exp } = req.body;
       const poll_id = Math.random().toString(36).slice(2);
-      const macAddress = gm.default();
+      // const macAddress = gm.default();
 
-      console.log(req.user);
+      console.log(req.body.choices.length);
+
+      // const newPoll = await new Poll({
+      //   client: req.user.id,
+      //   poll_id,
+      //   title,
+      //   description,
+      //   choice1,
+      //   choice2,
+      //   choice3,
+      //   mac: "1",
+      // });
+
       const newPoll = await new Poll({
         client: req.user.id,
+        exp,
         poll_id,
         title,
         description,
-        choice1,
-        choice2,
-        choice3,
+        choices: choices,
         mac: "1",
       });
-
       await newPoll.save();
+      // return res.json("good");
+
       // const updateResponse = await Poll.updateOne({}, { $push: { mac: "1" } });
       return res.status(200).json({
         success: true,

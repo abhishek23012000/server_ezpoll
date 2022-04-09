@@ -12,27 +12,38 @@ const pollSchema = new Schema(
     description: {
       type: String,
     },
-    choice1: {
-      type: String,
-    },
-    choice2: {
-      type: String,
-    },
-    choice3: {
-      type: String,
-    },
+    // choice1: {
+    //   type: String,
+    // },
+    // choice2: {
+    //   type: String,
+    // },
+    // choice3: {
+    //   type: String,
+    // },
 
-    choice1Vote: {
-      type: Number,
-      default: 0,
-    },
-    choice2Vote: {
-      type: Number,
-      default: 0,
-    },
-    choice3Vote: {
-      type: Number,
-      default: 0,
+    // choice1Vote: {
+    //   type: Number,
+    //   default: 0,
+    // },
+    // choice2Vote: {
+    //   type: Number,
+    //   default: 0,
+    // },
+    // choice3Vote: {
+    //   type: Number,
+    //   default: 0,
+    // },
+
+    choices: [
+      {
+        choiceNo: String,
+        choiceValue: String,
+      },
+    ],
+
+    exp: {
+      type: Date,
     },
 
     mac: [
