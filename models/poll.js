@@ -39,6 +39,10 @@ const pollSchema = new Schema(
       {
         choiceNo: String,
         choiceValue: String,
+        count: {
+          type: Number,
+          default: 0,
+        },
       },
     ],
 

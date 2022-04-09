@@ -25,7 +25,7 @@ module.exports = {
       // });
 
       const newPoll = await new Poll({
-        client: req.user.id,
+        // client: req.user.id,
         exp,
         poll_id,
         title,
@@ -72,7 +72,7 @@ module.exports = {
   choicePoll: async (req, res, next) => {
     try {
       // const poll = req.body.poll_id;
-      const choice = req.body.choice;
+      const choice_id = req.body.choice_id;
       let macAddress =
         req.header("x-forwarded-for") || req.connection.remoteAddress;
 
@@ -81,13 +81,11 @@ module.exports = {
       });
 
       const tempPoll = await Poll.findById(poll[0]._id);
-      console.log(macAddress);
+      // console.log(macAddress);
 
       let i = 0;
       while (typeof tempPoll.mac[i] !== "undefined") {
         if (tempPoll.mac[i] === macAddress) {
-          console.log(tempPoll.mac[i]);
-          console.log(macAddress);
           return res.status(200).json({
             success: false,
             message: "Already voted",
@@ -97,25 +95,16 @@ module.exports = {
         i++;
       }
 
+      // console.log(poll[0].id);
+
+      var ind = tempPoll.choices.findIndex((item) => item.id === choice_id);
+
+      tempPoll.choices[ind].count += 1;
+      await tempPoll.save();
       const updateResponse = await Poll.updateOne(
         { _id: poll[0].id },
         { $push: { mac: macAddress } }
       );
-
-      console.log(poll[0].id);
-      // console.log(updateResponse);
-      // console.log(tempPoll);
-      if (choice === "choice1") {
-        tempPoll.choice1Vote += 1;
-        // console.log(poll[0].choice1);
-      } else if (choice === "choice2") {
-        // console.log(poll[0].choice2);
-        tempPoll.choice2Vote += 1;
-      } else {
-        // console.log(poll[0].choice3);
-        tempPoll.choice3Vote += 1;
-      }
-      await tempPoll.save();
 
       return res.status(200).json({
         success: true,
