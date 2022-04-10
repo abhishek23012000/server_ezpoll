@@ -4,6 +4,7 @@ const keys = require("../config/key");
 const gm = require("getmac");
 let Poll = require("../models/poll");
 var address = require("address");
+const poll = require("../models/poll");
 module.exports = {
   createPoll: async (req, res, next) => {
     try {
@@ -120,6 +121,22 @@ module.exports = {
         success: false,
         message: `error in getting poll", ${err.message}`,
       });
+    }
+  },
+
+  deletePoll: async (req, res, next) => {
+    try {
+      let poll = await Poll.findById(req.params.id);
+
+      poll.remove();
+      res.status(200).json({
+        success: true,
+        message: "deleted sucessfully",
+      });
+    } catch (err) {
+      res
+        .status(400)
+        .json({ message: `error in deleting candidate", ${err.message}` });
     }
   },
 };

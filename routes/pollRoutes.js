@@ -6,6 +6,7 @@ const {
   createPoll,
   choicePoll,
   clientPoll,
+  deletePoll,
 } = require("../controller/pollController");
 
 router.post(
@@ -18,6 +19,8 @@ router.get(
   passport.authenticate("jwt", { session: false }),
   clientPoll
 );
+
+router.get("/delete/:id", deletePoll);
 router.get("/:id", getPoll);
 router.post("/choice", choicePoll);
 // router.post("/addUser", addUser);

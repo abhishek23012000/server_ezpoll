@@ -124,6 +124,7 @@ module.exports = {
 
       // convert excel to json
       const position_id = req.body.position_id;
+      console.log(position_id);
       var dataPathExcel = `./excel_file/${req.file.filename}`;
 
       var wb = xlsx.readFile(dataPathExcel);
