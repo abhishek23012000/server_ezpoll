@@ -11,7 +11,13 @@ const transport = nodemailer.createTransport({
   },
 });
 
-const sendMail = async (email, secretToken, registrationNumber, mode) => {
+const sendMail = async (
+  email,
+  secretToken,
+  registrationNumber,
+  mode,
+  position_id
+) => {
   try {
     if (mode == "OTP") {
       return await transport.sendMail({
@@ -19,545 +25,508 @@ const sendMail = async (email, secretToken, registrationNumber, mode) => {
         to: email,
         subject: "Voting App",
         html: `
-        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+        <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Email Confirmation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <!-- Facebook sharing information tags -->
-  <meta property="og:title" content="Verify Your Email">
-  <title>Verify Your Email</title>
-  <style type="text/css">
-    #outlook a{
-        padding:0;
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap");
+      * {
+        font-family: "Quicksand", sans-serif;
       }
-      body{
-        width:100% !important;
+      .logo {
+        margin-left: 30px;
+        color: #ffffff !important;
+        font-weight: 600;
+        font-size: 40px;
       }
-      .ReadMsgBody{
-        width:100%;
+      .logo:hover {
+        transform: scale(1.05);
+        cursor: pointer;
       }
-      .ExternalClass{
-        width:100%;
+      .h3 {
+        font-size: 22px;
+        font-weight: bolder;
+        color: #038cfe;
       }
-      body{
-        -webkit-text-size-adjust:none;
+      .linkToVote {
+        font-size: 1.5rem;
+        margin-top: -5%;
+        margin-bottom: 10%;
       }
-      body{
-        margin:0;
-        padding:0;
-      }
-      img{
-        border:0;
-        height:auto;
-        line-height:100%;
-        outline:none;
-        text-decoration:none;
-      }
-      table td{
-        border-collapse:collapse;
-      }
-      #backgroundTable{
-        height:100% !important;
-        margin:0;
-        padding:0;
-        width:100% !important;
-      }
-    /*
-    @tab Page
-    @section background color
-    @tip Set the background color for your email. You may want to choose one that matches your company's branding.
-    @theme page
-    */
-      body,#backgroundTable{
-        /*@editable*/background-color:#FAFAFA;
-      }
-    /*
-    @tab Page
-    @section email border
-    @tip Set the border for your email.
-    */
-      #templateContainer{
-        /*@editable*/border:1px none #DDDDDD;
-      }
-    /*
-    @tab Page
-    @section heading 1
-    @tip Set the styling for all first-level headings in your emails. These should be the largest of your headings.
-    @style heading 1
-    */
-      h1,.h1{
-        /*@editable*/color:#202020;
-        display:block;
-        /*@editable*/font-family:Arial;
-        /*@editable*/font-size:24px;
-        /*@editable*/font-weight:bold;
-        /*@editable*/line-height:100%;
-        margin-top:20px;
-        margin-right:0;
-        margin-bottom:20px;
-        margin-left:0;
-        /*@editable*/text-align:center;
-      }
-    /*
-    @tab Page
-    @section heading 2
-    @tip Set the styling for all second-level headings in your emails.
-    @style heading 2
-    */
-      h2,.h2{
-        /*@editable*/color:#202020;
-        display:block;
-        /*@editable*/font-family:Arial;
-        /*@editable*/font-size:30px;
-        /*@editable*/font-weight:bold;
-        /*@editable*/line-height:100%;
-        margin-top:0;
-        margin-right:0;
-        margin-bottom:10px;
-        margin-left:0;
-        /*@editable*/text-align:center;
-      }
-    /*
-    @tab Page
-    @section heading 3
-    @tip Set the styling for all third-level headings in your emails.
-    @style heading 3
-    */
-      h3,.h3{
-        /*@editable*/color:#202020;
-        display:block;
-        /*@editable*/font-family:Arial;
-        /*@editable*/font-size:26px;
-        /*@editable*/font-weight:bold;
-        /*@editable*/line-height:100%;
-        margin-top:0;
-        margin-right:0;
-        margin-bottom:10px;
-        margin-left:0;
-        /*@editable*/text-align:center;
-      }
-    /*
-    @tab Page
-    @section heading 4
-    @tip Set the styling for all fourth-level headings in your emails. These should be the smallest of your headings.
-    @style heading 4
-    */
-      h4,.h4{
-        /*@editable*/color:#202020;
-        display:block;
-        /*@editable*/font-family:Arial;
-        /*@editable*/font-size:22px;
-        /*@editable*/font-weight:bold;
-        /*@editable*/line-height:100%;
-        margin-top:0;
-        margin-right:0;
-        margin-bottom:10px;
-        margin-left:0;
-        /*@editable*/text-align:center;
-      }
-    /*
-    @tab Header
-    @section preheader style
-    @tip Set the background color for your email's preheader area.
-    @theme page
-    */
-      #templatePreheader{
-        /*@editable*/background-color:#FAFAFA;
-      }
-    /*
-    @tab Header
-    @section preheader text
-    @tip Set the styling for your email's preheader text. Choose a size and color that is easy to read.
-    */
-      .preheaderContent div{
-        /*@editable*/color:#505050;
-        /*@editable*/font-family:Arial;
-        /*@editable*/font-size:10px;
-        /*@editable*/line-height:100%;
-        /*@editable*/text-align:left;
-      }
-    /*
-    @tab Header
-    @section preheader link
-    @tip Set the styling for your email's preheader links. Choose a color that helps them stand out from your text.
-    */
-      .preheaderContent div a:link,.preheaderContent div a:visited,.preheaderContent div a .yshortcuts {
-        /*@editable*/color:#336699;
-        /*@editable*/font-weight:normal;
-        /*@editable*/text-decoration:underline;
-      }
-      .preheaderContent img{
-        display:inline;
-        height:auto;
-        margin-bottom:10px;
-        max-width:280px;
-      }
-    /*
-    @tab Header
-    @section header style
-    @tip Set the background color and border for your email's header area.
-    @theme header
-    */
-      #templateHeader{
-        /*@editable*/background-color:#FFFFFF;
-        /*@editable*/border-bottom:0;
-      }
-    /*
-    @tab Header
-    @section header text
-    @tip Set the styling for your email's header text. Choose a size and color that is easy to read.
-    */
-      .headerContent{
-        /*@editable*/color:#202020;
-        /*@editable*/font-family:Arial;
-        /*@editable*/font-size:34px;
-        /*@editable*/font-weight:bold;
-        /*@editable*/line-height:100%;
-        /*@editable*/padding:0;
-        /*@editable*/text-align:left;
-        /*@editable*/vertical-align:middle;
-        background-color: #FAFAFA;
-          padding-bottom: 14px;
-      }
-    /*
-    @tab Header
-    @section header link
-    @tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.
-    */
-      .headerContent a:link,.headerContent a:visited,.headerContent a .yshortcuts {
-        /*@editable*/color:#336699;
-        /*@editable*/font-weight:normal;
-        /*@editable*/text-decoration:underline;
-      }
-      #headerImage{
-        height:auto;
-        max-width:400px !important;
-      }
-    /*
-    @tab Body
-    @section body style
-    @tip Set the background color for your email's body area.
-    */
-      #templateContainer,.bodyContent{
-        /*@editable*/background-color:#FFFFFF;
-      }
-    /*
-    @tab Body
-    @section body text
-    @tip Set the styling for your email's main content text. Choose a size and color that is easy to read.
-    @theme main
-    */
-      .bodyContent div{
-        /*@editable*/color:#505050;
-        /*@editable*/font-family:Arial;
-        /*@editable*/font-size:14px;
-        /*@editable*/line-height:150%;
-        /*@editable*/text-align:left;
-      }
-    /*
-    @tab Body
-    @section body link
-    @tip Set the styling for your email's main content links. Choose a color that helps them stand out from your text.
-    */
-      .bodyContent div a:link,.bodyContent div a:visited,.bodyContent div a .yshortcuts {
-        /*@editable*/color:#336699;
-        /*@editable*/font-weight:normal;
-        /*@editable*/text-decoration:underline;
-      }
-      .bodyContent img{
-        display:inline;
-        height:auto;
-        margin-bottom:10px;
-        max-width:280px;
-      }
-    /*
-    @tab Footer
-    @section footer style
-    @tip Set the background color and top border for your email's footer area.
-    @theme footer
-    */
-      #templateFooter{
-        /*@editable*/background-color:#FFFFFF;
-        /*@editable*/border-top:0;
-      }
-    /*
-    @tab Footer
-    @section footer text
-    @tip Set the styling for your email's footer text. Choose a size and color that is easy to read.
-    @theme footer
-    */
-      .footerContent {
-        background-color: #fafafa;
-      }
-      .footerContent div{
-        /*@editable*/color:#707070;
-        /*@editable*/font-family:Arial;
-        /*@editable*/font-size:11px;
-        /*@editable*/line-height:150%;
-        /*@editable*/text-align:left;
-      }
-    /*
-    @tab Footer
-    @section footer link
-    @tip Set the styling for your email's footer links. Choose a color that helps them stand out from your text.
-    */
-      .footerContent div a:link,.footerContent div a:visited,.footerContent div a .yshortcuts {
-        /*@editable*/color:#336699;
-        /*@editable*/font-weight:normal;
-        /*@editable*/text-decoration:underline;
-      }
-      .footerContent img{
-        display:inline;
-      }
-    /*
-    @tab Footer
-    @section social bar style
-    @tip Set the background color and border for your email's footer social bar.
-    @theme footer
-    */
-      #social{
-        /*@editable*/background-color:#FAFAFA;
-        /*@editable*/border:0;
-      }
-    /*
-    @tab Footer
-    @section social bar style
-    @tip Set the background color and border for your email's footer social bar.
-    */
-      #social div{
-        /*@editable*/text-align:left;
-      }
-    /*
-    @tab Footer
-    @section utility bar style
-    @tip Set the background color and border for your email's footer utility bar.
-    @theme footer
-    */
-      #utility{
-        /*@editable*/background-color:#FFFFFF;
-        /*@editable*/border:0;
-      }
-    /*
-    @tab Footer
-    @section utility bar style
-    @tip Set the background color and border for your email's footer utility bar.
-    */
-      #utility div{
-        /*@editable*/text-align:left;
-      }
-      #monkeyRewards img{
-        display:inline;
-        height:auto;
-        max-width:280px;
-      }
-  
-  
-    /*
-    ATAVIST CUSTOM STYLES 
-     */
-  
-    .buttonText {
-      color: #4A90E2;
-      text-decoration: none;
-      font-weight: normal;
-      display: block;
-      border: 2px solid #585858;
-      padding: 10px 80px;
-      font-family: Arial;
-    }
-  
-    #supportSection, .supportContent {
-      background-color: white;
-      font-family: arial;
-      font-size: 12px;
-      border-top: 1px solid #e4e4e4;
-    }
-  
-    .bodyContent table {
-      padding-bottom: 10px;
-    }
-  
-  
-    .footerContent p {
-      margin: 0;
-      margin-top: 2px;
-    }
-  
-    .headerContent.centeredWithBackground {
-      background-color: #F4EEE2;
-      text-align: center;
-      padding-top: 20px;
-      padding-bottom: 20px;
-    }
-        
-     @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
-            h1 {
-                font-size: 40px !important;
-            }
-            
-            .content {
-                font-size: 22px !important;
-            }
-            
-            .bodyContent p {
-                font-size: 22px !important;
-            }
-            
-            .buttonText {
-                font-size: 22px !important;
-            }
-            
-            p {
-                
-                font-size: 16px !important;
-                
-            }
-            
-            .footerContent p {
-                padding-left: 5px !important;
-            }
-            
-            .mainContainer {
-                padding-bottom: 0 !important;   
-            }
+
+      @media screen and (max-width: 800px) {
+        .headLine {
+          background-color: #038cfe;
+          width: 100vw; /* The width is 100%, when the viewport is 800px or smaller */
         }
-  </style>
-</head>
+      }
+    </style>
+  </head>
+  <body
+    class="clean-body u_body"
+    style="
+      margin: 0;
+      padding: 0;
+      -webkit-text-size-adjust: 100%;
+      background-color: #ffffff;
+      color: #000000;
+    "
+  >
+    <!--[if IE]><div class="ie-container"><![endif]-->
+    <!--[if mso]><div class="mso-container"><![endif]-->
+    <table
+      style="
+        border-collapse: collapse;
+        table-layout: fixed;
+        border-spacing: 0;
+        mso-table-lspace: 0pt;
+        mso-table-rspace: 0pt;
+        vertical-align: top;
+        min-width: 320px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        width: 100%;
+      "
+      cellpadding="0"
+      cellspacing="0"
+    >
+      <tbody>
+        <tr style="vertical-align: top">
+          <td
+            style="
+              word-break: break-word;
+              border-collapse: collapse !important;
+              vertical-align: top;
+            "
+          >
+            <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" style="background-color: #ffffff;"><![endif]-->
 
-<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="width:100% ;-webkit-text-size-adjust:none;margin:0;padding:0;background-color:#FAFAFA;">
-  <center>
-    <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="backgroundTable" style="height:100% ;margin:0;padding:0;width:100% ;background-color:#FAFAFA;">
-      <tr>
-        <td align="center" valign="top" style="border-collapse:collapse;">
-          <!-- // Begin Template Preheader \\ -->
-          <table border="0" cellpadding="10" cellspacing="0" width="450" id="templatePreheader" style="background-color:#FAFAFA;">
-            <tr>
-              <td valign="top" class="preheaderContent" style="border-collapse:collapse;">
-                <!-- // Begin Module: Standard Preheader \\ -->
-                <table border="0" cellpadding="10" cellspacing="0" width="100%">
-                  <tr>
-                    <td valign="top" style="border-collapse:collapse;">
-                      <!-- <div mc:edit="std_preheader_content">
-                                                     Use this area to offer a short teaser of your email's content. Text here will show in the preview area of some email clients.
-                                                  </div>
-                                                  -->
-                    </td>
-                  </tr>
-                </table>
-                <!-- // End Module: Standard Preheader \\ -->
-              </td>
-            </tr>
-          </table>
-          <!-- // End Template Preheader \\ -->
-          <table border="0" cellpadding="0" cellspacing="0" width="450" id="templateContainer" style="border:1px none #DDDDDD;background-color:#FFFFFF;">
-            <tr>
-              <td align="center" valign="top" style="border-collapse:collapse;">
-                <!-- // Begin Template Header \\ -->
-                <table border="0" cellpadding="0" cellspacing="0" width="450" id="templateHeader" style="background-color:#FFFFFF;border-bottom:0;">
-                  <tr>
-                    <td class="headerContent centeredWithBackground" style="border-collapse:collapse;color:#202020;font-family:Arial;font-size:34px;font-weight:bold;line-height:100%;padding:0;text-align:center;vertical-align:middle;background-color:#F4EEE2;padding-bottom:20px;padding-top:20px;">
-                      <!-- // Begin Module: Standard Header Image \\ -->
-                      <img width="130" src="https://ca.cair.com/losangeles/wp-content/uploads/sites/6/2018/05/vote-482x274.png" style="width:130px;max-width:130px;border:0;height:auto;line-height:100%;outline:none;text-decoration:none;" id="headerImage campaign-icon">
-                      <!-- // End Module: Standard Header Image \\ -->
-                    </td>
-                  </tr>
-                </table>
-                <!-- // End Template Header \\ -->
-              </td>
-            </tr>
-            <tr>
-              <td align="center" valign="top" style="border-collapse:collapse;">
-                <!-- // Begin Template Body \\ -->
-                <table border="0" cellpadding="0" cellspacing="0" width="450" id="templateBody">
-                  <tr>
-                    <td valign="top" class="bodyContent" style="border-collapse:collapse;background-color:#FFFFFF;">
-                      <!-- // Begin Module: Standard Content \\ -->
-                      <table border="0" cellpadding="20" cellspacing="0" width="100%" style="padding-bottom:10px;">
-                        <tr>
-                          <td valign="top" style="padding-bottom:1rem;border-collapse:collapse;" class="mainContainer">
-                            <div style="text-align:center;color:#505050;font-family:Arial;font-size:14px;line-height:150%;">
-                              <h1 class="h1" style="color:#202020;display:block;font-family:Arial;font-size:24px;font-weight:bold;line-height:100%;margin-top:20px;margin-right:0;margin-bottom:20px;margin-left:0;text-align:center;">Verify Your Email</h1>
+            <div
+              class="u-row-container"
+              style="padding: 0px; background-color: transparent"
+            >
+              <div
+                class="u-row"
+                style="
+                  margin: 0 auto;
+                  min-width: 320px;
+                  max-width: 550px;
+                  overflow-wrap: break-word;
+                  word-wrap: break-word;
+                  word-break: break-word;
+                  background-color: #038cfe;
+                "
+              >
+                <div
+                  style="
+                    border-collapse: collapse;
+                    display: table;
+                    width: 100%;
+                    background-color: transparent;
+                  "
+                >
+                  <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:550px;"><tr style="background-color: #038cfe;"><![endif]-->
 
-                              <!-- <h2 class="h2">Heading 2</h2>
-                                                                <h3 class="h3">Heading 3</h3>
-                                                                <h4 class="h4">Heading 4</h4> -->
-                              <p>Here is your otp to login.</p>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td align="center" style="border-collapse:collapse;">
-                            <table border="0" cellpadding="0" cellspacing="0" style="padding-bottom:10px;">
-                              <tbody>
-                                <tr align="center">
-                                  <td align="center" valign="middle" style="border-collapse:collapse;">
-                                    <a class="buttonText" href="#" target="_blank" style="color: #4A90E2;text-decoration: none;font-weight: normal;display: block;border: 2px solid #585858;padding: 10px 80px;font-family: Arial;">${secretToken} && ${registrationNumber} </a>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </td>
-                        </tr>
-                      </table>
-                      <!-- // End Module: Standard Content \\ -->
-                    </td>
-                  </tr>
-                </table>
-                <!-- // End Template Body \\ -->
-              </td>
-            </tr>
-            <tr>
-              <td align="center" valign="top" style="border-collapse:collapse;">
-                <!-- // Begin Support Section \\ -->
-                <table border="0" cellpadding="10" cellspacing="0" width="450" id="supportSection" style="background-color:white;font-family:arial;font-size:12px;border-top:1px solid #e4e4e4;">
-                  <tr>
-                    <td valign="top" class="supportContent" style="border-collapse:collapse;background-color:white;font-family:arial;font-size:12px;border-top:1px solid #e4e4e4;">
-                      <!-- // Begin Module: Standard Footer \\ -->
-                      <table border="0" cellpadding="10" cellspacing="0" width="100%">
-                        <tr>
-                          <td valign="top" width="100%" style="border-collapse:collapse;">
-                            <br>
-                            <div style="text-align: center; color: #c9c9c9;">
-                              <p>Questions? Get your answers here:&nbsp;
-                                <a href="" style="color:#4a90e2;font-weight:normal;text-decoration:underline; font-size: 12px;">Help Center</a>.</p>
-                            </div>
-                            <br>
-                          </td>
-                        </tr>
-                      </table>
-                      <!-- // End Module: Standard Footer \\ -->
-                    </td>
-                  </tr>
-                </table>
-                <!-- // Begin Support Section \\ -->
-              </td>
-            </tr>
-            <tr>
-              <td align="center" valign="top" style="border-collapse:collapse;">
-                <!-- // Begin Template Footer \\ -->
-                <table border="0" cellpadding="10" cellspacing="0" width="450" id="templateFooter" style="background-color:#FFFFFF;border-top:0;">
-                  <tr>
-                    <td valign="top" class="footerContent" style="padding-left:0;border-collapse:collapse;background-color:#fafafa;">
-                      <div style="text-align:center;color:#c9c9c9;font-family:Arial;font-size:11px;line-height:150%;">
-                        <p style="text-align:left;margin:0;margin-top:2px;">Voting | Guwahati, India, 560068 | Copyright © 2022 | All rights reserved</p>
+                  <!--[if (mso)|(IE)]><td align="center" width="550" style="width: 550px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
+                  <div
+                    class="u-col u-col-100"
+                    style="
+                      max-width: 320px;
+                      min-width: 550px;
+                      display: table-cell;
+                      vertical-align: top;
+                    "
+                  >
+                    <div style="width: 100% !important">
+                      <!--[if (!mso)&(!IE)]><!--><div
+                        style="
+                          padding: 0px;
+                          border-top: 0px solid transparent;
+                          border-left: 0px solid transparent;
+                          border-right: 0px solid transparent;
+                          border-bottom: 0px solid transparent;
+                        "
+                      ><!--<![endif]-->
+                        <table
+                          id="u_content_image_1"
+                          role="presentation"
+                          cellpadding="0"
+                          cellspacing="0"
+                          width="100%"
+                          border="0"
+                        >
+                          <tbody>
+                            <tr>
+                              <td
+                                class="v-container-padding-padding"
+                                style="
+                                  overflow-wrap: break-word;
+                                  word-break: break-word;
+                                  padding: 0px 0px;
+                                "
+                                align="left"
+                              >
+                                <table
+                                  width="100%"
+                                  cellpadding="0"
+                                  cellspacing="0"
+                                  border="0"
+                                >
+                                  <tbody>
+                                    <tr>
+                                      <td
+                                        class="headLine"
+                                        style="
+                                          padding-right: 0px;
+                                          padding-left: 0px;
+                                          /* background-color: #2b2b2b; */
+                                        "
+                                        align="center"
+                                      >
+                                        <h3 class="logo">EZPoll</h3>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <!--[if (!mso)&(!IE)]><!-->
                       </div>
-                      <!-- // End Module: Standard Footer \\ -->
-                    </td>
-                  </tr>
-                </table>
-                <!-- // End Template Footer \\ -->
-              </td>
-            </tr>
-          </table>
-          <br>
-        </td>
-      </tr>
-    </table>
-  </center>
-</body>
+                      <!--<![endif]-->
+                    </div>
+                  </div>
+                  <!--[if (mso)|(IE)]></td><![endif]-->
+                  <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
+                </div>
+              </div>
+            </div>
 
+            <div
+              class="u-row-container"
+              style="padding: 0px; background-color: transparent"
+            >
+              <div
+                class="u-row"
+                style="
+                  margin: 0 auto;
+                  min-width: 320px;
+                  max-width: 550px;
+                  overflow-wrap: break-word;
+                  word-wrap: break-word;
+                  word-break: break-word;
+                  background-color: transparent;
+                "
+              >
+                <div
+                  style="
+                    border-collapse: collapse;
+                    display: table;
+                    width: 100%;
+                    background-image: url('https://cdn.templates.unlayer.com/assets/1636376675254-sdsdsd.png');
+                    background-repeat: no-repeat;
+                    background-position: center top;
+                    background-color: transparent;
+                  "
+                >
+                  <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:550px;"><tr style="background-image: url('https://cdn.templates.unlayer.com/assets/1636376675254-sdsdsd.png');background-repeat: no-repeat;background-position: center top;background-color: transparent;"><![endif]-->
+
+                  <!--[if (mso)|(IE)]><td align="center" width="550" style="width: 550px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;" valign="top"><![endif]-->
+                  <div
+                    class="u-col u-col-100"
+                    style="
+                      max-width: 320px;
+                      min-width: 550px;
+                      display: table-cell;
+                      vertical-align: top;
+                    "
+                  >
+                    <div
+                      style="
+                        width: 100% !important;
+                        border-radius: 0px;
+                        -webkit-border-radius: 0px;
+                        -moz-border-radius: 0px;
+                      "
+                    >
+                      <!--[if (!mso)&(!IE)]><!--><div
+                        style="
+                          padding: 0px;
+                          border-top: 0px solid transparent;
+                          border-left: 0px solid transparent;
+                          border-right: 0px solid transparent;
+                          border-bottom: 0px solid transparent;
+                          border-radius: 0px;
+                          -webkit-border-radius: 0px;
+                          -moz-border-radius: 0px;
+                        "
+                      ><!--<![endif]-->
+                        <table
+                          id="u_content_image_4"
+                          style="font-family: arial, helvetica, sans-serif"
+                          role="presentation"
+                          cellpadding="0"
+                          cellspacing="0"
+                          width="100%"
+                          border="0"
+                        >
+                          <tbody>
+                            <tr>
+                              <td
+                                class="v-container-padding-padding"
+                                style="
+                                  overflow-wrap: break-word;
+                                  word-break: break-word;
+                                  padding: 50px 10px 25px;
+                                  font-family: arial, helvetica, sans-serif;
+                                "
+                                align="left"
+                              >
+                                <table
+                                  width="100%"
+                                  cellpadding="0"
+                                  cellspacing="0"
+                                  border="0"
+                                >
+                                  <tbody>
+                                    <tr>
+                                      <td
+                                        style="
+                                          padding-right: 0px;
+                                          padding-left: 0px;
+                                        "
+                                        align="center"
+                                      >
+                                        <img
+                                          align="center"
+                                          border="0"
+                                          src="https://cdn.templates.unlayer.com/assets/1636374086763-hero.png"
+                                          alt="Hero Image"
+                                          title="Hero Image"
+                                          style="
+                                            outline: none;
+                                            text-decoration: none;
+                                            -ms-interpolation-mode: bicubic;
+                                            clear: both;
+                                            display: inline-block !important;
+                                            border: none;
+                                            height: auto;
+                                            float: none;
+                                            width: 54%;
+                                            max-width: 286.2px;
+                                          "
+                                          width="286.2"
+                                          class="v-src-width v-src-max-width"
+                                        />
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <table
+                          style="font-family: arial, helvetica, sans-serif"
+                          role="presentation"
+                          cellpadding="0"
+                          cellspacing="0"
+                          width="100%"
+                          border="0"
+                        >
+                          <tbody>
+                            <tr>
+                              <td
+                                class="v-container-padding-padding"
+                                style="
+                                  overflow-wrap: break-word;
+                                  word-break: break-word;
+                                  padding: 10px 20px 5px;
+                                  font-family: arial, helvetica, sans-serif;
+                                "
+                                align="left"
+                              >
+                                <h2
+                                  style="
+                                    margin: 0px;
+                                    color: #141414;
+                                    line-height: 140%;
+                                    text-align: center;
+                                    word-wrap: break-word;
+                                    font-weight: normal;
+                                    font-family: 'Open Sans', sans-serif;
+                                    font-size: 28px;
+                                  "
+                                >
+                                  <strong
+                                    >Here are your Login Credentials</strong
+                                  >
+                                </h2>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <table
+                          style="font-family: arial, helvetica, sans-serif"
+                          role="presentation"
+                          cellpadding="0"
+                          cellspacing="0"
+                          width="100%"
+                          border="0"
+                        >
+                          <tbody>
+                            <tr>
+                              <td
+                                class="v-container-padding-padding"
+                                style="
+                                  overflow-wrap: break-word;
+                                  word-break: break-word;
+                                  padding: 0px 10px 10px;
+                                  font-family: arial, helvetica, sans-serif;
+                                "
+                                align="left"
+                              ></td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <table
+                          style="font-family: arial, helvetica, sans-serif"
+                          role="presentation"
+                          cellpadding="0"
+                          cellspacing="0"
+                          width="100%"
+                          border="0"
+                        >
+                          <tbody>
+                            <tr>
+                              <td
+                                class="v-container-padding-padding"
+                                style="
+                                  overflow-wrap: break-word;
+                                  word-break: break-word;
+                                  padding: 15px 10px 12px;
+                                  font-family: arial, helvetica, sans-serif;
+                                "
+                                align="left"
+                              >
+                                <h1
+                                  style="
+                                    margin: 0px;
+                                    color: #3b4d63;
+                                    line-height: 140%;
+                                    text-align: center;
+                                    word-wrap: break-word;
+                                    font-weight: normal;
+                                    font-family: arial, helvetica, sans-serif;
+                                    font-size: 41px;
+                                  "
+                                >
+                                  <strong>
+                                    <div class="h3">
+                                      Username : ${registrationNumber}
+                                    </div>
+                                    <div class="h3">
+                                      Password : ${secretToken}
+                                    </div>
+                                    <br />
+                                    <div class="linkToVote">
+                                      Click here to visit the Voting Portal :
+                                      http://localhost:3000/voterLogin/${position_id}
+                                    </div>
+                                  </strong>
+                                </h1>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <table
+                          style="font-family: arial, helvetica, sans-serif"
+                          role="presentation"
+                          cellpadding="0"
+                          cellspacing="0"
+                          width="100%"
+                          border="0"
+                        >
+                          <tbody>
+                            <tr>
+                              <td
+                                class="v-container-padding-padding"
+                                style="
+                                  overflow-wrap: break-word;
+                                  word-break: break-word;
+                                  padding: 0px 10px 117px;
+                                  font-family: arial, helvetica, sans-serif;
+                                "
+                                align="left"
+                              >
+                                <div
+                                  style="
+                                    color: #2b2b2b;
+                                    line-height: 140%;
+                                    text-align: center;
+                                    word-wrap: break-word;
+                                  "
+                                >
+                                  <p style="font-size: 14px; line-height: 140%">
+                                    <span
+                                      style="
+                                        font-size: 18px;
+                                        line-height: 25.2px;
+                                      "
+                                      ><strong
+                                        ><span
+                                          class="footr"
+                                          style="
+                                            /* font-family: Lato, sans-serif; */
+                                            line-height: 25.2px;
+                                            font-size: 18px;
+                                          "
+                                          >This is an auto generated email.
+                                          Please do not reply to this.</span
+                                        ></strong
+                                      ></span
+                                    >
+                                  </p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <!--[if (!mso)&(!IE)]><!-->
+                      </div>
+                      <!--<![endif]-->
+                    </div>
+                  </div>
+                  <!--[if (mso)|(IE)]></td><![endif]-->
+                  <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
+                </div>
+              </div>
+            </div>
+
+            <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--[if mso]></div><![endif]-->
+    <!--[if IE]></div><![endif]-->
+  </body>
 </html>
+
+   
       `,
       });
     } else if (mode == "VOTEROTP") {
@@ -566,8 +535,505 @@ const sendMail = async (email, secretToken, registrationNumber, mode) => {
         from: "ezpoll.india@gmail.com",
         to: email,
         subject: "Voting App",
-        html: `otp is ${secretToken} and you are voting for ${registrationNumber.name} and partyname is  ${registrationNumber.partyName}
-        <img width="130" src="${registrationNumber.profile}" style="width:130px;max-width:130px;border:0;height:auto;line-height:100%;outline:none;text-decoration:none;">
+        html: `
+
+        <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Email Confirmation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap");
+      * {
+        font-family: "Quicksand", sans-serif;
+      }
+      .logo {
+        margin-left: 30px;
+        color: #ffffff !important;
+        font-weight: 600;
+        font-size: 40px;
+      }
+      .logo:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+      }
+      .h3 {
+        font-size: 30px;
+        font-weight: bolder;
+        color: #038cfe;
+      }
+      .linkToVote {
+        font-size: 1.5rem;
+        margin-top: -5%;
+        margin-bottom: 10%;
+      }
+
+      @media screen and (max-width: 800px) {
+        .headLine {
+          background-color: #038cfe;
+          width: 100vw; /* The width is 100%, when the viewport is 800px or smaller */
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="clean-body u_body"
+    style="
+      margin: 0;
+      padding: 0;
+      -webkit-text-size-adjust: 100%;
+      background-color: #ffffff;
+      color: #000000;
+    "
+  >
+    <!--[if IE]><div class="ie-container"><![endif]-->
+    <!--[if mso]><div class="mso-container"><![endif]-->
+    <table
+      style="
+        border-collapse: collapse;
+        table-layout: fixed;
+        border-spacing: 0;
+        mso-table-lspace: 0pt;
+        mso-table-rspace: 0pt;
+        vertical-align: top;
+        min-width: 320px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        width: 100%;
+      "
+      cellpadding="0"
+      cellspacing="0"
+    >
+      <tbody>
+        <tr style="vertical-align: top">
+          <td
+            style="
+              word-break: break-word;
+              border-collapse: collapse !important;
+              vertical-align: top;
+            "
+          >
+            <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" style="background-color: #ffffff;"><![endif]-->
+
+            <div
+              class="u-row-container"
+              style="padding: 0px; background-color: transparent"
+            >
+              <div
+                class="u-row"
+                style="
+                  margin: 0 auto;
+                  min-width: 320px;
+                  max-width: 550px;
+                  overflow-wrap: break-word;
+                  word-wrap: break-word;
+                  word-break: break-word;
+                  background-color: #038cfe;
+                "
+              >
+                <div
+                  style="
+                    border-collapse: collapse;
+                    display: table;
+                    width: 100%;
+                    background-color: transparent;
+                  "
+                >
+                  <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:550px;"><tr style="background-color: #038cfe;"><![endif]-->
+
+                  <!--[if (mso)|(IE)]><td align="center" width="550" style="width: 550px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
+                  <div
+                    class="u-col u-col-100"
+                    style="
+                      max-width: 320px;
+                      min-width: 550px;
+                      display: table-cell;
+                      vertical-align: top;
+                    "
+                  >
+                    <div style="width: 100% !important">
+                      <!--[if (!mso)&(!IE)]><!--><div
+                        style="
+                          padding: 0px;
+                          border-top: 0px solid transparent;
+                          border-left: 0px solid transparent;
+                          border-right: 0px solid transparent;
+                          border-bottom: 0px solid transparent;
+                        "
+                      ><!--<![endif]-->
+                        <table
+                          id="u_content_image_1"
+                          role="presentation"
+                          cellpadding="0"
+                          cellspacing="0"
+                          width="100%"
+                          border="0"
+                        >
+                          <tbody>
+                            <tr>
+                              <td
+                                class="v-container-padding-padding"
+                                style="
+                                  overflow-wrap: break-word;
+                                  word-break: break-word;
+                                  padding: 0px 0px;
+                                "
+                                align="left"
+                              >
+                                <table
+                                  width="100%"
+                                  cellpadding="0"
+                                  cellspacing="0"
+                                  border="0"
+                                >
+                                  <tbody>
+                                    <tr>
+                                      <td
+                                        class="headLine"
+                                        style="
+                                          padding-right: 0px;
+                                          padding-left: 0px;
+                                          /* background-color: #2b2b2b; */
+                                        "
+                                        align="center"
+                                      >
+                                        <h3 class="logo">EZPoll</h3>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <!--[if (!mso)&(!IE)]><!-->
+                      </div>
+                      <!--<![endif]-->
+                    </div>
+                  </div>
+                  <!--[if (mso)|(IE)]></td><![endif]-->
+                  <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="u-row-container"
+              style="padding: 0px; background-color: transparent"
+            >
+              <div
+                class="u-row"
+                style="
+                  margin: 0 auto;
+                  min-width: 320px;
+                  max-width: 550px;
+                  overflow-wrap: break-word;
+                  word-wrap: break-word;
+                  word-break: break-word;
+                  background-color: transparent;
+                "
+              >
+                <div
+                  style="
+                    border-collapse: collapse;
+                    display: table;
+                    width: 100%;
+                    background-image: url('https://cdn.templates.unlayer.com/assets/1636376675254-sdsdsd.png');
+                    background-repeat: no-repeat;
+                    background-position: center top;
+                    background-color: transparent;
+                  "
+                >
+                  <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:550px;"><tr style="background-image: url('https://cdn.templates.unlayer.com/assets/1636376675254-sdsdsd.png');background-repeat: no-repeat;background-position: center top;background-color: transparent;"><![endif]-->
+
+                  <!--[if (mso)|(IE)]><td align="center" width="550" style="width: 550px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;" valign="top"><![endif]-->
+                  <div
+                    class="u-col u-col-100"
+                    style="
+                      max-width: 320px;
+                      min-width: 550px;
+                      display: table-cell;
+                      vertical-align: top;
+                    "
+                  >
+                    <div
+                      style="
+                        width: 100% !important;
+                        border-radius: 0px;
+                        -webkit-border-radius: 0px;
+                        -moz-border-radius: 0px;
+                      "
+                    >
+                      <!--[if (!mso)&(!IE)]><!--><div
+                        style="
+                          padding: 0px;
+                          border-top: 0px solid transparent;
+                          border-left: 0px solid transparent;
+                          border-right: 0px solid transparent;
+                          border-bottom: 0px solid transparent;
+                          border-radius: 0px;
+                          -webkit-border-radius: 0px;
+                          -moz-border-radius: 0px;
+                        "
+                      ><!--<![endif]-->
+                        <table
+                          id="u_content_image_4"
+                          style="font-family: arial, helvetica, sans-serif"
+                          role="presentation"
+                          cellpadding="0"
+                          cellspacing="0"
+                          width="100%"
+                          border="0"
+                        >
+                          <tbody>
+                            <tr>
+                              <td
+                                class="v-container-padding-padding"
+                                style="
+                                  overflow-wrap: break-word;
+                                  word-break: break-word;
+                                  padding: 50px 10px 25px;
+                                  font-family: arial, helvetica, sans-serif;
+                                "
+                                align="left"
+                              >
+                                <table
+                                  width="100%"
+                                  cellpadding="0"
+                                  cellspacing="0"
+                                  border="0"
+                                >
+                                  <tbody>
+                                    <tr>
+                                      <td
+                                        style="
+                                          padding-right: 0px;
+                                          padding-left: 0px;
+                                        "
+                                        align="center"
+                                      >
+                                        <img
+                                          align="center"
+                                          border="0"
+                                          src="https://cdn.templates.unlayer.com/assets/1636374086763-hero.png"
+                                          alt="Hero Image"
+                                          title="Hero Image"
+                                          style="
+                                            outline: none;
+                                            text-decoration: none;
+                                            -ms-interpolation-mode: bicubic;
+                                            clear: both;
+                                            display: inline-block !important;
+                                            border: none;
+                                            height: auto;
+                                            float: none;
+                                            width: 54%;
+                                            max-width: 286.2px;
+                                          "
+                                          width="286.2"
+                                          class="v-src-width v-src-max-width"
+                                        />
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <table
+                          style="font-family: arial, helvetica, sans-serif"
+                          role="presentation"
+                          cellpadding="0"
+                          cellspacing="0"
+                          width="100%"
+                          border="0"
+                        >
+                          <tbody>
+                            <tr>
+                              <td
+                                class="v-container-padding-padding"
+                                style="
+                                  overflow-wrap: break-word;
+                                  word-break: break-word;
+                                  padding: 10px 20px 5px;
+                                  font-family: arial, helvetica, sans-serif;
+                                "
+                                align="left"
+                              >
+                                <h2
+                                  style="
+                                    margin: 0px;
+                                    color: #141414;
+                                    line-height: 140%;
+                                    text-align: center;
+                                    word-wrap: break-word;
+                                    font-weight: normal;
+                                    font-family: 'Open Sans', sans-serif;
+                                    font-size: 28px;
+                                  "
+                                >
+                                  <strong
+                                    >Your OTP is
+                                    <span class="h3">${secretToken}</span>
+                                  </strong>
+                                </h2>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <table
+                          style="font-family: arial, helvetica, sans-serif"
+                          role="presentation"
+                          cellpadding="0"
+                          cellspacing="0"
+                          width="100%"
+                          border="0"
+                        >
+                          <tbody>
+                            <tr>
+                              <td
+                                class="v-container-padding-padding"
+                                style="
+                                  overflow-wrap: break-word;
+                                  word-break: break-word;
+                                  padding: 0px 10px 10px;
+                                  font-family: arial, helvetica, sans-serif;
+                                "
+                                align="left"
+                              ></td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <table
+                          style="font-family: arial, helvetica, sans-serif"
+                          role="presentation"
+                          cellpadding="0"
+                          cellspacing="0"
+                          width="100%"
+                          border="0"
+                        >
+                          <tbody>
+                            <tr>
+                              <td
+                                class="v-container-padding-padding"
+                                style="
+                                  overflow-wrap: break-word;
+                                  word-break: break-word;
+                                  padding: 15px 10px 12px;
+                                  font-family: arial, helvetica, sans-serif;
+                                "
+                                align="left"
+                              >
+                                <h1
+                                  style="
+                                    margin: 0px;
+                                    color: #3b4d63;
+                                    line-height: 140%;
+                                    text-align: center;
+                                    word-wrap: break-word;
+                                    font-weight: normal;
+                                    font-family: arial, helvetica, sans-serif;
+                                    font-size: 41px;
+                                  "
+                                >
+                                  <strong>
+                                    <br />
+                                    <div class="linkToVote">
+                                      You are voting for :
+                                      ${registrationNumber.name}
+                                    </div>
+                                  </strong>
+                                </h1>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <table
+                          style="font-family: arial, helvetica, sans-serif"
+                          role="presentation"
+                          cellpadding="0"
+                          cellspacing="0"
+                          width="100%"
+                          border="0"
+                        >
+                          <tbody>
+                            <tr>
+                              <td
+                                class="v-container-padding-padding"
+                                style="
+                                  overflow-wrap: break-word;
+                                  word-break: break-word;
+                                  padding: 0px 10px 117px;
+                                  font-family: arial, helvetica, sans-serif;
+                                "
+                                align="left"
+                              >
+                                <div
+                                  style="
+                                    color: #2b2b2b;
+                                    line-height: 140%;
+                                    text-align: center;
+                                    word-wrap: break-word;
+                                  "
+                                >
+                                  <p style="font-size: 14px; line-height: 140%">
+                                    <span
+                                      style="
+                                        font-size: 18px;
+                                        line-height: 25.2px;
+                                      "
+                                      ><strong
+                                        ><span
+                                          class="footr"
+                                          style="
+                                            /* font-family: Lato, sans-serif; */
+                                            line-height: 25.2px;
+                                            font-size: 18px;
+                                          "
+                                          >This is an auto generated email.
+                                          Please do not reply to this.</span
+                                        ></strong
+                                      ></span
+                                    >
+                                  </p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <!--[if (!mso)&(!IE)]><!-->
+                      </div>
+                      <!--<![endif]-->
+                    </div>
+                  </div>
+                  <!--[if (mso)|(IE)]></td><![endif]-->
+                  <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
+                </div>
+              </div>
+            </div>
+
+            <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--[if mso]></div><![endif]-->
+    <!--[if IE]></div><![endif]-->
+  </body>
+</html>
+
+
+
         `,
       });
     }

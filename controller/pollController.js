@@ -9,20 +9,6 @@ module.exports = {
     try {
       const { title, description, choices, exp } = req.body;
       const poll_id = Math.random().toString(36).slice(2);
-      // const macAddress = gm.default();
-
-      // console.log(req.body.choices.length);
-
-      // const newPoll = await new Poll({
-      //   client: req.user.id,
-      //   poll_id,
-      //   title,
-      //   description,
-      //   choice1,
-      //   choice2,
-      //   choice3,
-      //   mac: "1",
-      // });
 
       const newPoll = await new Poll({
         client: req.user.id,

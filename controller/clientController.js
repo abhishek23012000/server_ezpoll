@@ -22,16 +22,23 @@ const keys = require("../config/key");
 module.exports = {
   addClient: async (req, res, next) => {
     try {
-      const { name, email, dob, contactNumber } = req.body;
+      const { name, email, dob, contactNumber, password, confirmPassword } =
+        req.body;
 
       //VALIDATE REQUEST BODY
-      if (!name || !email || !dob || !contactNumber) {
+      if (!name || !email || !contactNumber || !password || !confirmPassword) {
         return res.status(400).json({
           success: false,
           message: "Probably you have missed certain fields",
         });
       }
 
+      if (password !== confirmPassword) {
+        return res.status(400).json({
+          success: false,
+          message: "password is not matched",
+        });
+      }
       const client = await Client.findOne({ email });
       if (client) {
         return res
@@ -40,7 +47,7 @@ module.exports = {
       }
 
       let hashedPassword;
-      hashedPassword = await bcrypt.hash(dob, 10);
+      hashedPassword = await bcrypt.hash(password, 10);
       var date = new Date();
       const joiningYear = date.getFullYear();
       //finding username
@@ -116,6 +123,7 @@ module.exports = {
       //   console.log(req.file);
 
       // convert excel to json
+      const position_id = req.body.position_id;
       var dataPathExcel = `./excel_file/${req.file.filename}`;
 
       var wb = xlsx.readFile(dataPathExcel);
@@ -154,7 +162,7 @@ module.exports = {
         var components = ["Voter", "_", userna];
 
         var username = components.join("");
-        await sendEmail(email, tempPass, username, "OTP");
+        await sendEmail(email, tempPass, username, "OTP", position_id);
         const newVoter = await new Voter({
           name,
           email,

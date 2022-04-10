@@ -191,7 +191,7 @@ module.exports = {
       voter.otp = OTP;
       await voter.save();
       // email, secretToken, registrationNumber, mode
-      await sendEmail(email, OTP, tempCandidate, "VOTEROTP");
+      await sendEmail(email, OTP, tempCandidate, "VOTEROTP", "1");
       return res
         .status(200)
         .json({ message: "check your registered email for OTP" });
