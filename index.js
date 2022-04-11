@@ -23,6 +23,7 @@ const voterRoutes = require("./routes/voterRoutes");
 const clientRoutes = require("./routes/clientRoutes");
 const userRoutes = require("./routes/userRoutes");
 const pollRoutes = require("./routes/pollRoutes");
+const passwordRoutes = require("./routes/passwordRoutes");
 //Passport Middleware
 app.use(passport.initialize());
 
@@ -39,6 +40,7 @@ app.use("/api/voter", voterRoutes);
 app.use("/api/client", clientRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/poll", pollRoutes);
+app.use("/api/reset", passwordRoutes);
 
 //Catching 404 Error
 app.use((req, res, next) => {

@@ -1,499 +1,123 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Email Confirmation</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap");
-      * {
-        font-family: "Quicksand", sans-serif;
-      }
-      .logo {
-        margin-left: 30px;
-        color: #ffffff !important;
-        font-weight: 600;
-        font-size: 40px;
-      }
-      .logo:hover {
-        transform: scale(1.05);
-        cursor: pointer;
-      }
-      .h3 {
-        font-size: 22px;
-        font-weight: bolder;
-        color: #038cfe;
-      }
-      .linkToVote {
-        font-size: 1.5rem;
-        margin-top: -5%;
-        margin-bottom: 10%;
-      }
-
-      @media screen and (max-width: 800px) {
-        .headLine {
-          background-color: #038cfe;
-          width: 100vw; /* The width is 100%, when the viewport is 800px or smaller */
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <style type="text/css">
+            @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap");
+            * {
+              font-family: "Quicksand", sans-serif;
+            }
+        body,
+        table,
+        td,
+        a {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
         }
-      }
+
+        table,
+        td {
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
+
+        img {
+            -ms-interpolation-mode: bicubic;
+        }
+
+        img {
+            border: 0;
+            height: auto;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+        }
+
+        table {
+            border-collapse: collapse !important;
+        }
+
+        body {
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+        }
+
+        a[x-apple-data-detectors] {
+            color: inherit !important;
+            text-decoration: none !important;
+            font-size: inherit !important;
+            font-family: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+        }
+
+        @media screen and (max-width: 480px) {
+            .mobile-hide {
+                display: none !important;
+            }
+
+            .mobile-center {
+                text-align: center !important;
+            }
+        }
+
+        div[style*="margin: 16px 0;"] {
+            margin: 0 !important;
+        }
     </style>
-  </head>
-  <body
-    class="clean-body u_body"
-    style="
-      margin: 0;
-      padding: 0;
-      -webkit-text-size-adjust: 100%;
-      background-color: #ffffff;
-      color: #000000;
-    "
-  >
-    <!--[if IE]><div class="ie-container"><![endif]-->
-    <!--[if mso]><div class="mso-container"><![endif]-->
-    <table
-      style="
-        border-collapse: collapse;
-        table-layout: fixed;
-        border-spacing: 0;
-        mso-table-lspace: 0pt;
-        mso-table-rspace: 0pt;
-        vertical-align: top;
-        min-width: 320px;
-        margin: 0 auto;
-        background-color: #ffffff;
-        width: 100%;
-      "
-      cellpadding="0"
-      cellspacing="0"
-    >
-      <tbody>
-        <tr style="vertical-align: top">
-          <td
-            style="
-              word-break: break-word;
-              border-collapse: collapse !important;
-              vertical-align: top;
-            "
-          >
-            <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" style="background-color: #ffffff;"><![endif]-->
 
-            <div
-              class="u-row-container"
-              style="padding: 0px; background-color: transparent"
-            >
-              <div
-                class="u-row"
-                style="
-                  margin: 0 auto;
-                  min-width: 320px;
-                  max-width: 550px;
-                  overflow-wrap: break-word;
-                  word-wrap: break-word;
-                  word-break: break-word;
-                  background-color: #038cfe;
-                "
-              >
-                <div
-                  style="
-                    border-collapse: collapse;
-                    display: table;
-                    width: 100%;
-                    background-color: transparent;
-                  "
-                >
-                  <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:550px;"><tr style="background-color: #038cfe;"><![endif]-->
-
-                  <!--[if (mso)|(IE)]><td align="center" width="550" style="width: 550px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
-                  <div
-                    class="u-col u-col-100"
-                    style="
-                      max-width: 320px;
-                      min-width: 550px;
-                      display: table-cell;
-                      vertical-align: top;
-                    "
-                  >
-                    <div style="width: 100% !important">
-                      <!--[if (!mso)&(!IE)]><!--><div
-                        style="
-                          padding: 0px;
-                          border-top: 0px solid transparent;
-                          border-left: 0px solid transparent;
-                          border-right: 0px solid transparent;
-                          border-bottom: 0px solid transparent;
-                        "
-                      ><!--<![endif]-->
-                        <table
-                          id="u_content_image_1"
-                          role="presentation"
-                          cellpadding="0"
-                          cellspacing="0"
-                          width="100%"
-                          border="0"
-                        >
-                          <tbody>
-                            <tr>
-                              <td
-                                class="v-container-padding-padding"
-                                style="
-                                  overflow-wrap: break-word;
-                                  word-break: break-word;
-                                  padding: 0px 0px;
-                                "
-                                align="left"
-                              >
-                                <table
-                                  width="100%"
-                                  cellpadding="0"
-                                  cellspacing="0"
-                                  border="0"
-                                >
-                                  <tbody>
+<body style="margin: 0 !important; padding: 0 !important; background-color: #eeeeee;" bgcolor="#eeeeee">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td align="center" style="background-color: #eeeeee;" bgcolor="#eeeeee">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
+                    <tr>
+                        <td align="center" valign="top" style="font-size:0; padding: 35px;" bgcolor="#F44336">
+                            <div style="display:inline-block; max-width:50%; min-width:100px; vertical-align:top; width:100%;">
+                                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:300px;">
                                     <tr>
-                                      <td
-                                        class="headLine"
-                                        style="
-                                          padding-right: 0px;
-                                          padding-left: 0px;
-                                          /* background-color: #2b2b2b; */
-                                        "
-                                        align="center"
-                                      >
-                                        <h3 class="logo">EZPoll</h3>
-                                      </td>
+                                        <td align="center" valign="top" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 36px; font-weight: 800; line-height: 48px;" class="mobile-center">
+                                            <h1 style="font-size: 46px; font-weight: 800; margin: 0; color: #ffffff;">EZPoll</h1>
+                                        </td>
                                     </tr>
-                                  </tbody>
                                 </table>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="padding: 35px 35px 20px 35px; background-color: #ffffff;" bgcolor="#ffffff">
+                            <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
+                                <tr>
+                                    <td align="center" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 24px; padding-top: 25px;"> <img src="https://img.icons8.com/ios/344/user-rights.png" width="125" height="120" style="display: block; border: 0px;" /><br>
+                                        <h2 style="font-size: 25px; font-weight: 800; line-height: 36px; color: #333333; margin: 0"> Username : {USERNAME}   </h2>
+                                        <h2 style="font-size: 25px; font-weight: 800; line-height: 36px; color: #333333; margin: 0"> Password : {PASSWORD}   </h2>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr> 
+                    <tr> 
+                        <td align="center" style="padding: 35px; background-color: #ffffff;" bgcolor="#ffffff">
+                            <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
 
-                        <!--[if (!mso)&(!IE)]><!-->
-                      </div>
-                      <!--<![endif]-->
-                    </div>
-                  </div>
-                  <!--[if (mso)|(IE)]></td><![endif]-->
-                  <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="u-row-container"
-              style="padding: 0px; background-color: transparent"
-            >
-              <div
-                class="u-row"
-                style="
-                  margin: 0 auto;
-                  min-width: 320px;
-                  max-width: 550px;
-                  overflow-wrap: break-word;
-                  word-wrap: break-word;
-                  word-break: break-word;
-                  background-color: transparent;
-                "
-              >
-                <div
-                  style="
-                    border-collapse: collapse;
-                    display: table;
-                    width: 100%;
-                    background-image: url('https://cdn.templates.unlayer.com/assets/1636376675254-sdsdsd.png');
-                    background-repeat: no-repeat;
-                    background-position: center top;
-                    background-color: transparent;
-                  "
-                >
-                  <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding: 0px;background-color: transparent;" align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:550px;"><tr style="background-image: url('https://cdn.templates.unlayer.com/assets/1636376675254-sdsdsd.png');background-repeat: no-repeat;background-position: center top;background-color: transparent;"><![endif]-->
-
-                  <!--[if (mso)|(IE)]><td align="center" width="550" style="width: 550px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;" valign="top"><![endif]-->
-                  <div
-                    class="u-col u-col-100"
-                    style="
-                      max-width: 320px;
-                      min-width: 550px;
-                      display: table-cell;
-                      vertical-align: top;
-                    "
-                  >
-                    <div
-                      style="
-                        width: 100% !important;
-                        border-radius: 0px;
-                        -webkit-border-radius: 0px;
-                        -moz-border-radius: 0px;
-                      "
-                    >
-                      <!--[if (!mso)&(!IE)]><!--><div
-                        style="
-                          padding: 0px;
-                          border-top: 0px solid transparent;
-                          border-left: 0px solid transparent;
-                          border-right: 0px solid transparent;
-                          border-bottom: 0px solid transparent;
-                          border-radius: 0px;
-                          -webkit-border-radius: 0px;
-                          -moz-border-radius: 0px;
-                        "
-                      ><!--<![endif]-->
-                        <table
-                          id="u_content_image_4"
-                          style="font-family: arial, helvetica, sans-serif"
-                          role="presentation"
-                          cellpadding="0"
-                          cellspacing="0"
-                          width="100%"
-                          border="0"
-                        >
-                          <tbody>
-                            <tr>
-                              <td
-                                class="v-container-padding-padding"
-                                style="
-                                  overflow-wrap: break-word;
-                                  word-break: break-word;
-                                  padding: 50px 10px 25px;
-                                  font-family: arial, helvetica, sans-serif;
-                                "
-                                align="left"
-                              >
-                                <table
-                                  width="100%"
-                                  cellpadding="0"
-                                  cellspacing="0"
-                                  border="0"
-                                >
-                                  <tbody>
-                                    <tr>
-                                      <td
-                                        style="
-                                          padding-right: 0px;
-                                          padding-left: 0px;
-                                        "
-                                        align="center"
-                                      >
-                                        <img
-                                          align="center"
-                                          border="0"
-                                          src="https://cdn.templates.unlayer.com/assets/1636374086763-hero.png"
-                                          alt="Hero Image"
-                                          title="Hero Image"
-                                          style="
-                                            outline: none;
-                                            text-decoration: none;
-                                            -ms-interpolation-mode: bicubic;
-                                            clear: both;
-                                            display: inline-block !important;
-                                            border: none;
-                                            height: auto;
-                                            float: none;
-                                            width: 54%;
-                                            max-width: 286.2px;
-                                          "
-                                          width="286.2"
-                                          class="v-src-width v-src-max-width"
-                                        />
-                                      </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-
-                        <table
-                          style="font-family: arial, helvetica, sans-serif"
-                          role="presentation"
-                          cellpadding="0"
-                          cellspacing="0"
-                          width="100%"
-                          border="0"
-                        >
-                          <tbody>
-                            <tr>
-                              <td
-                                class="v-container-padding-padding"
-                                style="
-                                  overflow-wrap: break-word;
-                                  word-break: break-word;
-                                  padding: 10px 20px 5px;
-                                  font-family: arial, helvetica, sans-serif;
-                                "
-                                align="left"
-                              >
-                                <h2
-                                  style="
-                                    margin: 0px;
-                                    color: #141414;
-                                    line-height: 140%;
-                                    text-align: center;
-                                    word-wrap: break-word;
-                                    font-weight: normal;
-                                    font-family: 'Open Sans', sans-serif;
-                                    font-size: 28px;
-                                  "
-                                >
-                                  <strong
-                                    >Here are your Login Credentials</strong
-                                  >
-                                </h2>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-
-                        <table
-                          style="font-family: arial, helvetica, sans-serif"
-                          role="presentation"
-                          cellpadding="0"
-                          cellspacing="0"
-                          width="100%"
-                          border="0"
-                        >
-                          <tbody>
-                            <tr>
-                              <td
-                                class="v-container-padding-padding"
-                                style="
-                                  overflow-wrap: break-word;
-                                  word-break: break-word;
-                                  padding: 0px 10px 10px;
-                                  font-family: arial, helvetica, sans-serif;
-                                "
-                                align="left"
-                              ></td>
-                            </tr>
-                          </tbody>
-                        </table>
-
-                        <table
-                          style="font-family: arial, helvetica, sans-serif"
-                          role="presentation"
-                          cellpadding="0"
-                          cellspacing="0"
-                          width="100%"
-                          border="0"
-                        >
-                          <tbody>
-                            <tr>
-                              <td
-                                class="v-container-padding-padding"
-                                style="
-                                  overflow-wrap: break-word;
-                                  word-break: break-word;
-                                  padding: 15px 10px 12px;
-                                  font-family: arial, helvetica, sans-serif;
-                                "
-                                align="left"
-                              >
-                                <h1
-                                  style="
-                                    margin: 0px;
-                                    color: #3b4d63;
-                                    line-height: 140%;
-                                    text-align: center;
-                                    word-wrap: break-word;
-                                    font-weight: normal;
-                                    font-family: arial, helvetica, sans-serif;
-                                    font-size: 41px;
-                                  "
-                                >
-                                  <strong>
-                                    <div class="h3">
-                                      Username : ${registrationNumber}
-                                    </div>
-                                    <div class="h3">
-                                      Password : ${secretToken}
-                                    </div>
-                                    <br />
-                                    <div class="linkToVote">
-                                      Click here to visit the Voting Portal :
-                                      http://localhost:3000/voterLogin/${position_id}
-                                    </div>
-                                  </strong>
-                                </h1>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-
-                        <table
-                          style="font-family: arial, helvetica, sans-serif"
-                          role="presentation"
-                          cellpadding="0"
-                          cellspacing="0"
-                          width="100%"
-                          border="0"
-                        >
-                          <tbody>
-                            <tr>
-                              <td
-                                class="v-container-padding-padding"
-                                style="
-                                  overflow-wrap: break-word;
-                                  word-break: break-word;
-                                  padding: 0px 10px 117px;
-                                  font-family: arial, helvetica, sans-serif;
-                                "
-                                align="left"
-                              >
-                                <div
-                                  style="
-                                    color: #2b2b2b;
-                                    line-height: 140%;
-                                    text-align: center;
-                                    word-wrap: break-word;
-                                  "
-                                >
-                                  <p style="font-size: 14px; line-height: 140%">
-                                    <span
-                                      style="
-                                        font-size: 18px;
-                                        line-height: 25.2px;
-                                      "
-                                      ><strong
-                                        ><span
-                                          class="footr"
-                                          style="
-                                            /* font-family: Lato, sans-serif; */
-                                            line-height: 25.2px;
-                                            font-size: 18px;
-                                          "
-                                          >This is an auto generated email.
-                                          Please do not reply to this.</span
-                                        ></strong
-                                      ></span
-                                    >
-                                  </p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-
-                        <!--[if (!mso)&(!IE)]><!-->
-                      </div>
-                      <!--<![endif]-->
-                    </div>
-                  </div>
-                  <!--[if (mso)|(IE)]></td><![endif]-->
-                  <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
-                </div>
-              </div>
-            </div>
-
-            <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
-          </td>
+                                <tr>
+                                    <td align="center" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; line-height: 24px;">
+                                        <p style="font-size: 14px; font-weight: 400; line-height: 20px; color: #777777;"> This is an auto generated email. Please don't reply to this. </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
         </tr>
-      </tbody>
     </table>
-    <!--[if mso]></div><![endif]-->
-    <!--[if IE]></div><![endif]-->
-  </body>
+</body>
+
 </html>

@@ -1036,6 +1036,15 @@ const sendMail = async (
 
         `,
       });
+    } else if (mode == "PasswordReset") {
+      return await transport.sendMail({
+        from: "ezpoll.india@gmail.com",
+        to: email,
+        subject: "Reset link",
+        html: `
+      your link is ${secretToken}
+        `,
+      });
     }
   } catch (err) {
     console.log(err);
