@@ -1,3 +1,3 @@
 # server_ezpoll
 
-deployed on ###https://git.heroku.com/ezserver.git
+deployed on  https://git.heroku.com/ezserver.git
