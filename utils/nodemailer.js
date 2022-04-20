@@ -442,7 +442,7 @@ const sendMail = async (
                                     <br />
                                     <div class="linkToVote">
                                       Click here to visit the Voting Portal :
-                                      http://localhost:3000/voterLogin/${position_id}
+                                      https://ezpoll-india.herokuapp.com/voterLogin/${position_id}
                                     </div>
                                   </strong>
                                 </h1>
